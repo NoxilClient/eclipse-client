@@ -3,41 +3,44 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Eclipse Client</title>
+    <title>Eclipse Client | Minecraft Performance Client</title>
+    <meta
+      name="description"
+      content="Eclipse Client is a high-performance Minecraft client with PvP modules, optimized FPS, and a clean drag-and-drop HUD."
+    />
     <style>
       @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Archivo+Black&display=swap');
 
       :root {
-        --bg-1: #030914;
-        --bg-2: #071826;
-        --panel: rgba(12, 17, 28, 0.75);
-        --panel-border: rgba(255, 255, 255, 0.08);
-        --text: #f4f7fb;
-        --muted: rgba(228, 235, 245, 0.72);
-        --gold: #f7c66b;
-        --gold-2: #ffab2d;
-        --gold-3: #f5a623;
-        --cyan: #62d7ff;
-        --cyan-2: #2ea6ff;
-        --blue: #1a2d6d;
-        --forest: #081914;
+        --bg: #050b13;
+        --bg-2: #0a1220;
+        --panel: rgba(12, 17, 27, 0.78);
+        --panel-strong: rgba(15, 19, 28, 0.96);
+        --panel-border: rgba(255, 255, 255, 0.09);
+        --muted: rgba(223, 232, 244, 0.72);
+        --text: #f4f8ff;
+        --gold: #f7c96d;
+        --gold-strong: #f6a42a;
+        --gold-soft: rgba(247, 201, 109, 0.16);
+        --cyan: #77dcff;
+        --cyan-strong: #3aaaf0;
+        --green: #76f0bf;
+        --shadow: rgba(9, 15, 24, 0.7);
       }
 
       * { box-sizing: border-box; }
 
-      html, body {
-        margin: 0;
-        min-height: 100%;
-        background:
-          radial-gradient(circle at 20% 15%, rgba(102, 146, 255, 0.25), transparent 28%),
-          radial-gradient(circle at 70% 20%, rgba(255, 167, 58, 0.16), transparent 24%),
-          linear-gradient(180deg, #020812 0%, #01070d 100%);
-        color: var(--text);
-        font-family: 'Inter', sans-serif;
-      }
+      html { scroll-behavior: smooth; }
 
       body {
+        margin: 0;
         min-height: 100vh;
+        background:
+          radial-gradient(circle at 20% 15%, rgba(255, 173, 71, 0.18), transparent 20%),
+          radial-gradient(circle at 80% 12%, rgba(120, 154, 255, 0.15), transparent 18%),
+          linear-gradient(180deg, #020810 0%, #040c18 100%);
+        color: var(--text);
+        font-family: 'Inter', sans-serif;
         overflow-x: hidden;
       }
 
@@ -45,43 +48,56 @@
         content: "";
         position: fixed;
         inset: 0;
-        background-image:
-          radial-gradient(2px 2px at 10% 20%, rgba(255,255,255,.9) 0, transparent 100%),
-          radial-gradient(1.5px 1.5px at 25% 15%, rgba(255,255,255,.7) 0, transparent 100%),
-          radial-gradient(2px 2px at 45% 35%, rgba(255,255,255,.8) 0, transparent 100%),
-          radial-gradient(1.5px 1.5px at 75% 12%, rgba(255,255,255,.8) 0, transparent 100%),
-          radial-gradient(2px 2px at 80% 30%, rgba(255,255,255,.8) 0, transparent 100%),
-          radial-gradient(2px 2px at 90% 18%, rgba(255,255,255,.8) 0, transparent 100%),
-          radial-gradient(1.5px 1.5px at 92% 42%, rgba(255,255,255,.9) 0, transparent 100%),
-          radial-gradient(2px 2px at 65% 52%, rgba(255,255,255,.75) 0, transparent 100%);
-        opacity: 0.9;
         pointer-events: none;
+        background-image:
+          radial-gradient(2px 2px at 10% 15%, rgba(255,255,255,0.8) 0, transparent 100%),
+          radial-gradient(2px 2px at 35% 22%, rgba(255,255,255,0.7) 0, transparent 100%),
+          radial-gradient(2.5px 2.5px at 62% 17%, rgba(255,255,255,0.85) 0, transparent 100%),
+          radial-gradient(2px 2px at 84% 12%, rgba(255,255,255,0.75) 0, transparent 100%),
+          radial-gradient(2px 2px at 77% 28%, rgba(255,255,255,0.78) 0, transparent 100%),
+          radial-gradient(1.8px 1.8px at 22% 38%, rgba(255,255,255,0.7) 0, transparent 100%),
+          radial-gradient(2px 2px at 55% 40%, rgba(255,255,255,0.8) 0, transparent 100%),
+          radial-gradient(1.8px 1.8px at 90% 35%, rgba(255,255,255,0.9) 0, transparent 100%);
+        opacity: 0.9;
       }
+
+      a { color: inherit; text-decoration: none; }
+      button { font: inherit; }
 
       .page-shell {
         position: relative;
-        min-height: 100vh;
-        background: linear-gradient(90deg, rgba(4, 9, 14, 0.89), rgba(4, 9, 14, 0.58));
+        z-index: 1;
+      }
+
+      .container {
+        width: min(1400px, calc(100% - 44px));
+        margin: 0 auto;
       }
 
       .topbar {
-        position: relative;
-        z-index: 2;
+        position: sticky;
+        top: 0;
+        z-index: 30;
+        background: rgba(4, 9, 16, 0.68);
+        backdrop-filter: blur(12px);
+        border-bottom: 1px solid rgba(255,255,255,0.06);
+      }
+
+      .topbar-inner {
         display: flex;
         align-items: center;
         justify-content: space-between;
-        width: min(100%, 1600px);
-        margin: 0 auto;
-        padding: 22px 28px 18px;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+        height: 90px;
+        gap: 18px;
       }
 
       .brand {
         display: flex;
         align-items: center;
         gap: 14px;
+        text-transform: uppercase;
+        letter-spacing: 0.18em;
         font-weight: 800;
-        letter-spacing: 0.08em;
       }
 
       .brand-mark {
@@ -89,8 +105,8 @@
         height: 34px;
         border-radius: 50%;
         position: relative;
-        background: radial-gradient(circle at 30% 30%, #fff8e6 0%, #f0d188 12%, #a4701e 54%, #101317 60%, #000 100%);
-        box-shadow: 0 0 18px rgba(255, 184, 69, 0.6);
+        background: radial-gradient(circle at 28% 30%, #fff3d9 0%, #f6d58e 12%, #b67a17 50%, #090d13 56%, #000 100%);
+        box-shadow: 0 0 18px rgba(247, 201, 109, 0.7);
       }
 
       .brand-mark::before {
@@ -98,109 +114,107 @@
         position: absolute;
         inset: 0;
         border-radius: 50%;
-        background: linear-gradient(90deg, rgba(0,0,0,0) 0 50%, rgba(0,0,0,0.95) 50% 100%);
-        opacity: 0.82;
+        background: linear-gradient(90deg, rgba(0,0,0,0) 0 50%, rgba(0,0,0,0.92) 50% 100%);
       }
 
       .brand-name {
         font-size: 1.05rem;
-        font-weight: 800;
-        letter-spacing: 0.20em;
       }
 
       .nav {
         display: flex;
         align-items: center;
-        gap: clamp(20px, 3vw, 44px);
-        color: rgba(255,255,255,0.82);
+        gap: clamp(20px, 3vw, 42px);
+        color: rgba(255,255,255,0.76);
         font-weight: 500;
       }
 
-      .nav a {
-        color: inherit;
-        text-decoration: none;
-        transition: color 0.2s ease;
+      .nav a:hover {
+        color: var(--text);
       }
 
-      .nav a:hover { color: #fff; }
+      .download-btn,
+      .primary-btn,
+      .secondary-btn,
+      .mini-btn {
+        border: none;
+        cursor: pointer;
+        transition: transform 0.18s ease, box-shadow 0.18s ease, opacity 0.18s ease;
+      }
+
+      .download-btn:hover,
+      .primary-btn:hover,
+      .secondary-btn:hover,
+      .mini-btn:hover {
+        transform: translateY(-1px);
+      }
 
       .download-btn {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        gap: 8px;
-        min-width: 176px;
+        min-width: 170px;
         height: 50px;
-        padding: 0 20px;
-        background: linear-gradient(180deg, #f2c76b 0%, #d6881b 100%);
-        color: #1a1408;
-        border: none;
-        border-radius: 9px;
+        padding: 0 18px;
+        border-radius: 10px;
+        background: linear-gradient(180deg, #f7d680 0%, #de8d19 100%);
+        color: #1c1305;
         font-weight: 900;
-        text-transform: uppercase;
         letter-spacing: 0.12em;
-        box-shadow: 0 0 16px rgba(245, 170, 64, 0.45);
-        cursor: pointer;
+        text-transform: uppercase;
+        box-shadow: 0 10px 24px rgba(248, 169, 44, 0.32);
       }
 
       .hero {
         position: relative;
-        z-index: 2;
-        width: min(100%, 1600px);
-        margin: 0 auto;
-        min-height: 790px;
+        padding: 32px 0 26px;
+        min-height: 760px;
+      }
+
+      .hero-inner {
         display: grid;
         grid-template-columns: 1.08fr 1fr;
-        gap: 18px;
-        padding: 28px 28px 0;
+        align-items: center;
+        gap: 22px;
       }
 
       .hero-copy {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        padding: 22px 0 0 32px;
+        padding: 10px 0 10px 8px;
       }
 
       .version-pill {
         display: inline-flex;
         align-items: center;
-        align-self: flex-start;
+        gap: 10px;
+        margin-bottom: 24px;
         padding: 10px 16px;
-        border: 1px solid rgba(247, 198, 107, 0.8);
+        background: rgba(19, 20, 29, 0.36);
+        border: 1px solid rgba(247, 201, 109, 0.7);
         border-radius: 8px;
-        background: rgba(30, 18, 7, 0.26);
         color: var(--gold);
-        font-size: 0.78rem;
+        font-size: 0.76rem;
         font-weight: 800;
-        letter-spacing: 0.16em;
+        letter-spacing: 0.12em;
         text-transform: uppercase;
-        margin-bottom: 22px;
-        box-shadow: 0 0 20px rgba(247, 198, 107, 0.12);
       }
 
       .version-pill::before {
         content: "";
-        width: 11px;
-        height: 11px;
-        margin-right: 10px;
-        background: linear-gradient(180deg, #ffda8b 0%, #d08716 100%);
-        border-radius: 2px;
-        box-shadow: 0 0 12px rgba(247, 198, 107, 0.6);
+        width: 10px;
+        height: 10px;
+        border-radius: 3px;
+        background: linear-gradient(180deg, #ffe7a6 0%, #cf8613 100%);
+        box-shadow: 0 0 14px rgba(247, 201, 109, 0.6);
       }
 
       h1 {
         margin: 0;
         font-family: 'Archivo Black', sans-serif;
-        font-size: clamp(4.2rem, 6vw, 10rem);
-        line-height: 0.88;
-        letter-spacing: -0.08em;
-        text-transform: none;
+        font-size: clamp(4.4rem, 7vw, 12rem);
+        line-height: 0.82;
+        letter-spacing: -0.09em;
       }
 
-      .white-word {
+      .light-word {
         display: block;
-        color: #f5f7fb;
+        color: #edf4ff;
       }
 
       .gold-word {
@@ -208,133 +222,122 @@
         color: var(--gold);
       }
 
-      .hero-copy p {
+      .lead {
         max-width: 760px;
-        margin: 30px 0 0;
+        margin-top: 26px;
         color: var(--muted);
-        font-size: clamp(1.05rem, 1.65vw, 1.55rem);
+        font-size: clamp(1.08rem, 1.6vw, 1.5rem);
         line-height: 1.55;
-        letter-spacing: -0.02em;
       }
 
-      .cta-row {
+      .hero-actions {
         display: flex;
         align-items: center;
-        gap: 18px;
-        margin-top: 30px;
+        gap: 16px;
         flex-wrap: wrap;
+        margin-top: 30px;
       }
 
-      .primary-cta,
-      .secondary-cta {
+      .primary-btn {
+        min-width: 290px;
         height: 62px;
+        padding: 0 22px;
         border-radius: 12px;
-        border: none;
-        font-weight: 800;
-        font-size: 0.9rem;
-        letter-spacing: 0.1em;
+        background: linear-gradient(180deg, #f7d57d 0%, #d38118 100%);
+        color: #110d07;
+        font-size: 0.83rem;
+        font-weight: 900;
+        letter-spacing: 0.13em;
         text-transform: uppercase;
-        cursor: pointer;
+        box-shadow: 0 12px 28px rgba(239, 164, 44, 0.3);
       }
 
-      .primary-cta {
-        min-width: 280px;
-        background: linear-gradient(180deg, #f7d57d 0%, #d98a18 100%);
-        color: #120f0a;
-        box-shadow: 0 10px 24px rgba(240, 150, 40, 0.35);
-      }
-
-      .secondary-cta {
-        min-width: 230px;
-        background: linear-gradient(180deg, rgba(27, 34, 52, 0.9), rgba(16, 21, 32, 0.9));
+      .secondary-btn {
+        min-width: 200px;
+        height: 62px;
+        padding: 0 22px;
+        border-radius: 12px;
+        background: rgba(14, 23, 32, 0.9);
+        border: 1px solid rgba(255,255,255,0.09);
         color: var(--text);
-        border: 1px solid rgba(255,255,255,0.12);
+        font-size: 0.8rem;
+        font-weight: 800;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
       }
 
       .hero-art {
         position: relative;
         display: flex;
-        align-items: flex-end;
         justify-content: center;
+        align-items: center;
+        min-height: 640px;
+      }
+
+      .scene {
+        position: relative;
+        width: min(100%, 760px);
+        height: 670px;
         overflow: hidden;
       }
 
-      .world-scene {
-        position: relative;
-        width: min(98%, 820px);
-        height: 720px;
-        margin-right: -8px;
-        border-radius: 18px;
-        background:
-          linear-gradient(180deg, rgba(2, 8, 20, 0.12) 0%, rgba(2, 8, 20, 0.1) 100%),
-          radial-gradient(circle at 50% 18%, rgba(255, 176, 81, 0.18), transparent 18%);
-      }
-
-      .eclipse {
+      .sun-glow {
         position: absolute;
-        right: 9%;
-        top: 8%;
-        width: clamp(180px, 28vw, 500px);
+        right: 4%;
+        top: 3%;
+        width: clamp(220px, 31vw, 520px);
         aspect-ratio: 1;
         border-radius: 50%;
-        background: radial-gradient(circle at 36% 38%, #fff 0%, #f6cf82 18%, #f0a639 36%, #2f1700 62%, #02080d 100%);
-        box-shadow:
-          0 0 30px rgba(255, 169, 62, 0.7),
-          0 0 80px rgba(255, 126, 28, 0.32);
+        background: radial-gradient(circle, rgba(255, 220, 150, 0.52) 0%, rgba(255, 157, 34, 0.22) 30%, rgba(255, 157, 34, 0.08) 54%, transparent 72%);
+        filter: blur(20px);
       }
 
-      .eclipse::before {
+      .sun {
+        position: absolute;
+        right: 8%;
+        top: 9%;
+        width: clamp(190px, 27vw, 470px);
+        aspect-ratio: 1;
+        border-radius: 50%;
+        background: radial-gradient(circle at 38% 35%, #fffdf9 0%, #f7d584 16%, #ecaf46 28%, #4a2a00 62%, #050b12 100%);
+        box-shadow: 0 0 28px rgba(255, 176, 67, 0.8), 0 0 100px rgba(255, 145, 34, 0.2);
+      }
+
+      .sun::before {
         content: "";
         position: absolute;
         inset: 0;
         border-radius: 50%;
-        background: radial-gradient(circle at 38% 43%, rgba(255,255,255,0.25), transparent 30%);
+        background: radial-gradient(circle at 34% 38%, rgba(255,255,255,0.28), transparent 30%);
       }
 
-      .eclipse::after {
+      .sun::after {
         content: "";
         position: absolute;
         inset: 8%;
         border-radius: 50%;
-        background: radial-gradient(circle at 70% 50%, rgba(0,0,0,0.88), rgba(0,0,0,0.98) 58%, rgba(2, 7, 14, 0.98) 100%);
-        transform: translateX(45%);
-        box-shadow: inset 0 0 26px rgba(0,0,0,0.8);
-      }
-
-      .solar-glow {
-        position: absolute;
-        right: 8%;
-        top: 8%;
-        width: clamp(250px, 33vw, 620px);
-        aspect-ratio: 1;
-        border-radius: 50%;
-        background: radial-gradient(circle, rgba(255, 214, 126, 0.32) 0%, rgba(255, 130, 30, 0.12) 40%, transparent 70%);
-        filter: blur(18px);
+        background: radial-gradient(circle at 62% 48%, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.97) 58%, rgba(0,0,0,1) 100%);
+        transform: translateX(46%);
+        box-shadow: inset 0 0 28px rgba(0,0,0,1);
       }
 
       .mountains {
         position: absolute;
-        inset: auto 0 0 0;
-        height: 46%;
-        background: linear-gradient(180deg, rgba(9, 20, 22, 0.1) 0%, rgba(4, 9, 14, 0.72) 100%);
+        left: -4%;
+        right: 0;
+        bottom: 15%;
+        height: 42%;
+        background: linear-gradient(180deg, rgba(11, 16, 22, 0.15), rgba(9, 15, 18, 0.6));
+        clip-path: polygon(0 100%, 0 55%, 11% 42%, 18% 66%, 29% 35%, 41% 61%, 48% 30%, 57% 62%, 66% 34%, 78% 68%, 87% 38%, 100% 51%, 100% 100%);
+        opacity: 0.9;
       }
 
-      .mountains::before,
-      .mountains::after {
+      .mountains::before {
         content: "";
         position: absolute;
-        inset: auto 0 0 0;
-        background: linear-gradient(180deg, rgba(12, 18, 22, 0.4), rgba(5, 8, 12, 0.9));
-        clip-path: polygon(0% 100%, 0% 58%, 12% 35%, 20% 58%, 33% 32%, 48% 66%, 57% 36%, 66% 68%, 78% 23%, 89% 60%, 100% 48%, 100% 100%);
-        width: 100%;
-        height: 100%;
-        filter: drop-shadow(0 0 25px rgba(7, 11, 18, 0.8));
-      }
-
-      .mountains::after {
-        background: linear-gradient(180deg, rgba(15, 24, 27, 0.45), rgba(2, 8, 14, 0.9));
-        clip-path: polygon(0% 100%, 0% 72%, 10% 58%, 19% 72%, 26% 56%, 33% 78%, 44% 48%, 57% 82%, 70% 52%, 80% 80%, 91% 66%, 100% 72%, 100% 100%);
-        opacity: 0.9;
+        inset: 0;
+        background: linear-gradient(180deg, rgba(15, 18, 21, 0.35), rgba(7, 12, 17, 0.9));
+        clip-path: polygon(0 100%, 0 68%, 12% 48%, 18% 66%, 27% 54%, 36% 74%, 52% 46%, 62% 80%, 70% 52%, 84% 76%, 100% 68%, 100% 100%);
       }
 
       .lake {
@@ -342,157 +345,388 @@
         left: 0;
         right: 0;
         bottom: 0;
-        height: 18%;
-        background: linear-gradient(180deg, rgba(17, 30, 36, 0.06), rgba(7, 12, 18, 0.8) 32%, rgba(3, 6, 12, 0.9) 100%);
-        overflow: hidden;
+        height: 26%;
+        background: linear-gradient(180deg, rgba(6, 11, 14, 0.12), rgba(5, 9, 14, 0.7) 24%, rgba(2, 7, 12, 0.95) 100%);
       }
 
       .lake::before {
         content: "";
         position: absolute;
         inset: 0;
-        background: linear-gradient(180deg, rgba(255,255,255,0.08), transparent 18%, transparent 80%, rgba(0,0,0,0.44));
-        transform: perspective(500px) rotateX(4deg);
+        background: linear-gradient(180deg, rgba(255,255,255,0.08), transparent 18%, transparent 80%, rgba(0,0,0,0.46));
+        transform: perspective(300px) rotateX(5deg);
       }
 
       .forest {
         position: absolute;
-        inset: auto 0 8% 0;
-        height: 38%;
+        left: -2%;
+        right: -2%;
+        bottom: 8%;
+        height: 36%;
         background:
-          linear-gradient(180deg, transparent, rgba(2, 6, 10, 0.6)),
           repeating-linear-gradient(
             90deg,
-            rgba(8, 15, 17, 0.7) 0 10px,
-            rgba(10, 18, 15, 0.25) 10px 24px,
-            rgba(16, 18, 17, 0.5) 24px 35px
+            rgba(9, 13, 15, 0.5) 0 14px,
+            rgba(14, 20, 18, 0.22) 14px 30px,
+            rgba(9, 14, 18, 0.4) 30px 42px
           );
-        clip-path: polygon(0% 100%, 0% 58%, 8% 40%, 12% 56%, 14% 42%, 20% 58%, 24% 35%, 33% 75%, 37% 42%, 42% 70%, 46% 36%, 56% 68%, 61% 42%, 70% 72%, 74% 46%, 82% 68%, 86% 35%, 100% 62%, 100% 100%);
+        clip-path: polygon(0 100%, 0 68%, 10% 52%, 16% 72%, 22% 45%, 29% 68%, 32% 39%, 41% 73%, 46% 42%, 55% 69%, 60% 40%, 69% 75%, 73% 45%, 84% 70%, 94% 42%, 100% 66%, 100% 100%);
         opacity: 0.8;
       }
 
-      .bottom-bar {
-        position: relative;
-        z-index: 2;
-        width: min(100%, 1600px);
-        margin: 0 auto;
-        padding: 0 28px 28px;
+      .quick-actions {
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 16px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 16px;
+        padding: 0 10px;
+        flex-wrap: wrap;
       }
 
-      .tool-strip {
+      .mini-btn {
+        height: 46px;
+        padding: 0 18px;
+        border-radius: 12px;
+        background: rgba(11, 18, 24, 0.7);
+        color: var(--text);
+        border: 1px solid rgba(255,255,255,0.08);
+        font-weight: 700;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+      }
+
+      .mini-btn.primary {
+        background: linear-gradient(180deg, rgba(117, 225, 255, 0.2), rgba(25, 105, 165, 0.18));
+        border-color: rgba(119, 220, 255, 0.5);
+        color: #dff8ff;
+      }
+
+      .content {
+        padding-top: 16px;
+        padding-bottom: 80px;
+      }
+
+      .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 18px;
+        margin-top: 24px;
+      }
+
+      .stat-card {
+        background: linear-gradient(180deg, rgba(16, 19, 26, 0.9), rgba(10, 15, 22, 0.93));
+        border: 1px solid var(--panel-border);
+        border-radius: 18px;
+        padding: 22px 20px;
+      }
+
+      .stat-card .value {
+        font-size: clamp(2rem, 3vw, 3rem);
+        font-weight: 900;
+        letter-spacing: -0.06em;
+      }
+
+      .stat-card .label {
+        margin-top: 8px;
+        color: var(--muted);
+        font-size: 0.95rem;
+      }
+
+      .section {
+        padding-top: 80px;
+      }
+
+      .section-heading {
         display: flex;
         justify-content: space-between;
+        align-items: end;
+        gap: 16px;
+        margin-bottom: 26px;
+      }
+
+      .eyebrow {
+        display: inline-block;
+        color: var(--gold);
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        font-weight: 800;
+        font-size: 0.72rem;
+      }
+
+      .section-title {
+        margin: 10px 0 0;
+        font-size: clamp(2.2rem, 3rem, 3.5rem);
+        letter-spacing: -0.06em;
+      }
+
+      .feature-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 22px;
+        margin-top: 26px;
+      }
+
+      .feature-card {
+        background: linear-gradient(180deg, rgba(15, 21, 30, 0.9), rgba(8, 13, 18, 0.96));
+        border: 1px solid rgba(255,255,255,0.08);
+        border-radius: 22px;
+        padding: 26px 22px;
+        min-height: 240px;
+      }
+
+      .feature-icon {
+        width: 52px;
+        height: 52px;
+        display: flex;
         align-items: center;
+        justify-content: center;
+        border-radius: 14px;
+        background: linear-gradient(180deg, rgba(129, 218, 255, 0.18), rgba(249, 175, 48, 0.12));
+        border: 1px solid rgba(255,255,255,0.08);
+        font-size: 1.4rem;
+      }
+
+      .feature-card h3 {
+        margin: 18px 0 10px;
+        font-size: 1.44rem;
+      }
+
+      .feature-card p {
+        margin: 0;
+        color: var(--muted);
+        line-height: 1.6;
+      }
+
+      .module-section {
+        margin-top: 26px;
+      }
+
+      .module-grid {
+        display: grid;
+        grid-template-columns: repeat(5, minmax(0, 1fr));
+        gap: 18px;
+        margin-top: 22px;
+      }
+
+      .module-card {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 120px;
+        border-radius: 18px;
+        background: linear-gradient(180deg, rgba(13, 19, 28, 0.94), rgba(9, 14, 20, 0.96));
+        border: 1px solid rgba(255,255,255,0.08);
+        font-weight: 700;
+        letter-spacing: 0.04em;
+        color: var(--text);
+      }
+
+      .version-section {
+        margin-top: 26px;
+      }
+
+      .version-grid {
+        display: grid;
+        grid-template-columns: repeat(5, minmax(0, 1fr));
+        gap: 18px;
+        margin-top: 20px;
+      }
+
+      .version-card {
+        background: linear-gradient(180deg, rgba(15, 21, 30, 0.96), rgba(8, 13, 18, 0.96));
+        border: 1px solid rgba(255,255,255,0.08);
+        border-radius: 16px;
+        padding: 22px 18px;
+      }
+
+      .version-tag {
+        display: inline-block;
+        margin-bottom: 14px;
+        padding: 6px 10px;
+        border-radius: 999px;
+        background: rgba(247, 201, 109, 0.14);
+        border: 1px solid rgba(247, 201, 109, 0.25);
+        color: var(--gold);
+        font-size: 0.7rem;
+        letter-spacing: 0.08em;
+        font-weight: 700;
+        text-transform: uppercase;
+      }
+
+      .version-card h4 {
+        margin: 0;
+        font-size: clamp(1.4rem, 2vw, 2rem);
+        letter-spacing: -0.06em;
+      }
+
+      .version-card p {
+        margin: 10px 0 0;
+        color: var(--muted);
+        line-height: 1.5;
+      }
+
+      .faq-wrap {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 18px;
+        margin-top: 22px;
+      }
+
+      details {
+        background: rgba(13, 20, 30, 0.85);
+        border: 1px solid rgba(255,255,255,0.08);
+        border-radius: 18px;
+        padding: 18px 18px 14px;
+      }
+
+      details summary {
+        cursor: pointer;
+        list-style: none;
+        font-weight: 700;
+        font-size: 1.02rem;
+      }
+
+      details summary::-webkit-details-marker { display: none; }
+
+      details p {
+        margin: 12px 0 0;
+        color: var(--muted);
+        line-height: 1.6;
+      }
+
+      .cta-panel {
+        margin-top: 80px;
+        background: linear-gradient(135deg, rgba(19, 27, 36, 0.95), rgba(11, 17, 24, 0.96));
+        border: 1px solid rgba(255,255,255,0.08);
+        border-radius: 26px;
+        padding: 34px 26px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
         gap: 20px;
         flex-wrap: wrap;
       }
 
-      .tool-pills {
+      .cta-panel h3 {
+        margin: 0 0 6px;
+        font-size: clamp(1.8rem, 2.6vw, 2.6rem);
+        letter-spacing: -0.06em;
+      }
+
+      .cta-panel p {
+        margin: 0;
+        color: var(--muted);
+      }
+
+      .cta-branding {
         display: flex;
         align-items: center;
-        gap: 10px;
+        gap: 14px;
         flex-wrap: wrap;
       }
 
-      .tool-pill {
-        min-height: 52px;
-        padding: 0 20px;
-        border-radius: 12px;
-        display: inline-flex;
+      .cta-actions {
+        display: flex;
         align-items: center;
-        justify-content: center;
-        border: 1px solid rgba(255,255,255,0.08);
-        background: rgba(17, 24, 37, 0.9);
-        color: var(--text);
-        font-weight: 600;
-        letter-spacing: 0.04em;
+        gap: 14px;
+        flex-wrap: wrap;
       }
 
-      .tool-pill.primary {
-        background: linear-gradient(180deg, #f7d57d 0%, #dd8a1b 100%);
-        color: #090d12;
-        border: none;
-        box-shadow: 0 10px 22px rgba(240, 150, 40, 0.28);
-        font-weight: 900;
-        letter-spacing: 0.14em;
+      footer {
+        padding: 26px 0 48px;
+        color: rgba(255,255,255,0.58);
       }
 
-      .tool-pill.primary .icon {
-        margin-right: 10px;
-      }
-
-      .tool-pill.secondary {
-        background: rgba(15, 25, 31, 0.8);
-      }
-
-      .icon {
-        display: inline-flex;
-        width: 18px;
-        height: 18px;
+      .footer-inner {
+        display: flex;
         align-items: center;
-        justify-content: center;
-        border-radius: 6px;
-        font-size: 0.8rem;
+        justify-content: space-between;
+        gap: 14px;
+        border-top: 1px solid rgba(255,255,255,0.08);
+        padding-top: 22px;
+        flex-wrap: wrap;
       }
 
-      @media (max-width: 1160px) {
-        .hero {
+      @media (max-width: 1180px) {
+        .hero-inner {
           grid-template-columns: 1fr;
-          min-height: auto;
-        }
-
-        .hero-copy {
-          padding-left: 10px;
-          padding-top: 16px;
         }
 
         .hero-art {
-          min-height: 550px;
+          min-height: 500px;
         }
 
-        .world-scene {
-          width: 100%;
-          max-width: 900px;
+        .feature-grid,
+        .module-grid,
+        .version-grid,
+        .stats-grid {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
         }
       }
 
       @media (max-width: 760px) {
-        .topbar {
-          padding-left: 16px;
-          padding-right: 16px;
+        .container {
+          width: min(100% - 22px, 1400px);
         }
 
         .nav {
           display: none;
         }
 
+        .topbar-inner {
+          height: 72px;
+        }
+
         .download-btn {
-          min-width: 140px;
-          padding: 0 14px;
-        }
-
-        .hero,
-        .bottom-bar {
-          padding-left: 16px;
-          padding-right: 16px;
-        }
-
-        .version-pill {
+          min-width: 132px;
+          font-size: 0.72rem;
           letter-spacing: 0.08em;
-          font-size: 0.7rem;
+        }
+
+        .hero {
+          padding-top: 18px;
+        }
+
+        .hero-copy {
+          padding-left: 0;
         }
 
         h1 {
-          font-size: clamp(3rem, 20vw, 5rem);
+          font-size: clamp(3.2rem, 18vw, 6rem);
         }
 
-        .primary-cta,
-        .secondary-cta {
+        .lead {
+          font-size: 1.06rem;
+        }
+
+        .primary-btn,
+        .secondary-btn {
           width: 100%;
         }
 
-        .tool-strip {
-          justify-content: center;
+        .hero-actions {
+          flex-direction: column;
+          align-items: stretch;
+        }
+
+        .feature-grid,
+        .module-grid,
+        .version-grid,
+        .stats-grid,
+        .faq-wrap {
+          grid-template-columns: 1fr;
+        }
+
+        .section-heading {
+          display: block;
+        }
+
+        .cta-panel {
+          padding: 24px 18px;
         }
       }
     </style>
@@ -500,64 +734,244 @@
   <body>
     <div class="page-shell">
       <header class="topbar">
-        <div class="brand" aria-label="Eclipse logo">
-          <div class="brand-mark"></div>
-          <div class="brand-name">ECLIPSE</div>
+        <div class="container topbar-inner">
+          <div class="brand" aria-label="Eclipse logo">
+            <div class="brand-mark"></div>
+            <div class="brand-name">Eclipse</div>
+          </div>
+
+          <nav class="nav" aria-label="Main navigation">
+            <a href="#features">Features</a>
+            <a href="#performance">Performance</a>
+            <a href="#versions">Versions</a>
+            <a href="#faq">FAQ</a>
+          </nav>
+
+          <button class="download-btn">Download</button>
         </div>
-
-        <nav class="nav" aria-label="Main navigation">
-          <a href="#">Features</a>
-          <a href="#">Performance</a>
-          <a href="#">FAQ</a>
-        </nav>
-
-        <button class="download-btn">⬇ Download</button>
       </header>
 
-      <main class="hero">
-        <div class="hero-copy">
-          <div class="version-pill">v2.4.1 • Supported versions: 1.8.9 • 1.20.1 • 1.21.11 • 26.2 • 26.3</div>
+      <main>
+        <section class="hero">
+          <div class="container hero-inner">
+            <div class="hero-copy">
+              <div class="version-pill">v2.4.1 • Supported versions: 1.8.9 • 1.20.1 • 1.21.11 • 26.2 • 26.3</div>
 
-          <h1>
-            <span class="white-word">Outshine</span>
-            <span class="white-word">the</span>
-            <span class="gold-word">competition.</span>
-          </h1>
+              <h1>
+                <span class="light-word">Outshine</span>
+                <span class="light-word">the</span>
+                <span class="gold-word">competition.</span>
+              </h1>
 
-          <p>
-            Eclipse is the Minecraft client built for speed, stability, and a clean PvP experience.
-            With 20+ modules, optimized performance, and a drag-and-drop HUD, it gives you the
-            edge without the clutter.
-          </p>
+              <p class="lead">
+                Eclipse is the Minecraft client built for raw performance, clean PvP utility,
+                and a drag-and-drop HUD that feels effortless from the moment you launch it.
+                With 20+ modules and optimized rendering, you get speed without compromise.
+              </p>
 
-          <div class="cta-row">
-            <button class="primary-cta">Download for Windows</button>
-            <button class="secondary-cta">20+ Mods</button>
+              <div class="hero-actions">
+                <button class="primary-btn">Download for Windows</button>
+                <button class="secondary-btn">20+ Mods</button>
+              </div>
+            </div>
+
+            <div class="hero-art" aria-label="Eclipse performance visualization">
+              <div class="scene">
+                <div class="sun-glow"></div>
+                <div class="sun"></div>
+                <div class="mountains"></div>
+                <div class="forest"></div>
+                <div class="lake"></div>
+
+                <div class="quick-actions">
+                  <button class="mini-btn primary">Private</button>
+                  <button class="mini-btn">Share</button>
+                  <button class="mini-btn">Pre-launch tools</button>
+                  <button class="mini-btn">Make public</button>
+                </div>
+              </div>
+            </div>
           </div>
-        </div>
+        </section>
 
-        <div class="hero-art" aria-label="Eclipse client visualization">
-          <div class="world-scene">
-            <div class="solar-glow"></div>
-            <div class="eclipse"></div>
-            <div class="mountains"></div>
-            <div class="forest"></div>
-            <div class="lake"></div>
+        <section class="content" id="performance">
+          <div class="container">
+            <div class="stats-grid">
+              <div class="stat-card">
+                <div class="value">+112%</div>
+                <div class="label">Average FPS boost</div>
+              </div>
+              <div class="stat-card">
+                <div class="value">-41%</div>
+                <div class="label">Lower RAM usage</div>
+              </div>
+              <div class="stat-card">
+                <div class="value">20+</div>
+                <div class="label">Modules included</div>
+              </div>
+              <div class="stat-card">
+                <div class="value">1-click</div>
+                <div class="label">Launch setup</div>
+              </div>
+            </div>
+
+            <div class="section" id="features">
+              <div class="section-heading">
+                <div>
+                  <span class="eyebrow">Features</span>
+                  <h2 class="section-title">Built for competitive play.</h2>
+                </div>
+              </div>
+
+              <div class="feature-grid">
+                <article class="feature-card">
+                  <div class="feature-icon">⚡</div>
+                  <h3>Performance first</h3>
+                  <p>
+                    Optimized rendering, lower latency, and cleaner memory usage to keep your gameplay fast and stable.
+                  </p>
+                </article>
+
+                <article class="feature-card">
+                  <div class="feature-icon">🎯</div>
+                  <h3> PvP utility</h3>
+                  <p>
+                    Built-in tools, HUD widgets, target awareness, and motion enhancements for a sharper competitive edge.
+                  </p>
+                </article>
+
+                <article class="feature-card">
+                  <div class="feature-icon">🧩</div>
+                  <h3>Flexible customization</h3>
+                  <p>
+                    Reorganize modules, tweak colors, and make your interface feel like your own with drag-and-drop controls.
+                  </p>
+                </article>
+              </div>
+            </div>
+
+            <div class="section module-section">
+              <div class="section-heading">
+                <div>
+                  <span class="eyebrow">Modules</span>
+                  <h2 class="section-title">20+ integrated tools.</h2>
+                </div>
+              </div>
+
+              <div class="module-grid">
+                <div class="module-card">Auto Clicker</div>
+                <div class="module-card">Hud Editor</div>
+                <div class="module-card">Killaura</div>
+                <div class="module-card">ESP</div>
+                <div class="module-card">Reach</div>
+                <div class="module-card">Velocity</div>
+                <div class="module-card">Criticals</div>
+                <div class="module-card">Motion</div>
+                <div class="module-card">Nametags</div>
+                <div class="module-card">Radar</div>
+                <div class="module-card">Server Info</div>
+                <div class="module-card">Fps Boost</div>
+                <div class="module-card">Animations</div>
+                <div class="module-card">Target HUD</div>
+                <div class="module-card">Theme</div>
+              </div>
+            </div>
+
+            <div class="section version-section" id="versions">
+              <div class="section-heading">
+                <div>
+                  <span class="eyebrow">Compatibility</span>
+                  <h2 class="section-title">Version support.</h2>
+                </div>
+              </div>
+
+              <div class="version-grid">
+                <div class="version-card">
+                  <span class="version-tag">Supported</span>
+                  <h4>1.8.9</h4>
+                  <p>Classic PvP setup, stable performance, and optimal compatibility.</p>
+                </div>
+                <div class="version-card">
+                  <span class="version-tag">Supported</span>
+                  <h4>1.20.1</h4>
+                  <p>Modern gameplay support with refined module behavior and speed boosts.</p>
+                </div>
+                <div class="version-card">
+                  <span class="version-tag">Supported</span>
+                  <h4>1.21.11</h4>
+                  <p>Updated compatibility for the latest player-driven playstyle and visuals.</p>
+                </div>
+                <div class="version-card">
+                  <span class="version-tag">Supported</span>
+                  <h4>26.2</h4>
+                  <p>Targeted support for current client optimization and rendering improvements.</p>
+                </div>
+                <div class="version-card">
+                  <span class="version-tag">Supported</span>
+                  <h4>26.3</h4>
+                  <p>Wide compatibility with the newest environment, ยูse-case tuning, and speed.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="section" id="faq">
+              <div class="section-heading">
+                <div>
+                  <span class="eyebrow">FAQ</span>
+                  <h2 class="section-title">Everything you need to know.</h2>
+                </div>
+              </div>
+
+              <div class="faq-wrap">
+                <details open>
+                  <summary>Does Eclipse work on older PCs?</summary>
+                  <p>Yes. Eclipse is optimized to reduce stutter, lower RAM use, and improve frame stability on lower-end hardware.</p>
+                </details>
+
+                <details>
+                  <summary>Is it easy to customize?</summary>
+                  <p>Absolutely. The HUD is drag-and-drop and modules can be enabled or disabled in seconds without fiddling with complex setup steps.</p>
+                </details>
+
+                <details>
+                  <summary>Does it support multiple Minecraft versions?</summary>
+                  <p>Yes. Eclipse supports 1.8.9, 1.20.1, 1.21.11, 26.2, and 26.3 to keep you ready for different setups.</p>
+                </details>
+
+                <details>
+                  <summary>Can I launch it with one click?</summary>
+                  <p>Yes. The client is designed for quick launch routines, with a cleaner setup flow and minimal configuration work.</p>
+                </details>
+              </div>
+            </div>
+
+            <div class="cta-panel">
+              <div class="cta-branding">
+                <div class="brand" aria-label="Eclipse brand">
+                  <div class="brand-mark"></div>
+                  <div class="brand-name">Eclipse</div>
+                </div>
+                <div>
+                  <h3>Ready to upgrade your setup?</h3>
+                  <p>Launch faster. Play smoother. Stay ahead.</p>
+                </div>
+              </div>
+
+              <div class="cta-actions">
+                <button class="primary-btn">Download now</button>
+                <button class="secondary-btn">View features</button>
+              </div>
+            </div>
           </div>
-        </div>
+        </section>
       </main>
 
-      <div class="bottom-bar">
-        <div class="tool-strip">
-          <div class="tool-pills">
-            <div class="tool-pill primary"><span class="icon">↓</span> Download</div>
-            <div class="tool-pill secondary"><span class="icon">▣</span> Private</div>
-            <div class="tool-pill secondary"><span class="icon">⤴</span> Share</div>
-            <div class="tool-pill secondary"><span class="icon">▶</span> Pre-launch tools</div>
-            <div class="tool-pill secondary"><span class="icon">⚙</span> Make public</div>
-          </div>
+      <footer>
+        <div class="container footer-inner">
+          <div>ECLIPSE © 2026. Not affiliated with Mojang Studios or Microsoft.</div>
+          <div>Built for performance. Built for control.</div>
         </div>
-      </div>
+      </footer>
     </div>
   </body>
 </html>
