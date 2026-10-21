@@ -35,11 +35,10 @@
         margin: 0;
         min-height: 100vh;
         overflow-x: hidden;
-        background-color: #070b14;
         background:
-          linear-gradient(180deg, rgba(2, 7, 13, 0.72), rgba(7, 13, 23, 0.8)),
-          url('eclipsebackground.png') center center / contain no-repeat;
-        background-attachment: scroll;
+          radial-gradient(circle at 20% 20%, rgba(156,125,255,0.18), transparent 20%),
+          radial-gradient(circle at 78% 8%, rgba(244,199,93,0.12), transparent 18%),
+          linear-gradient(180deg, #070b14 0%, #090d18 100%);
         color: var(--text);
         font-family: 'Inter', sans-serif;
       }
@@ -157,9 +156,22 @@
         position: relative;
         min-height: 820px;
         padding-top: 32px;
+        background:
+          linear-gradient(90deg, rgba(7, 11, 20, 0.78) 0%, rgba(7, 11, 20, 0.52) 44%, rgba(7, 11, 20, 0.14) 100%),
+          url('eclipsebackground.png') center center / cover no-repeat;
+      }
+
+      .hero::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: rgba(7, 11, 20, 0.1);
+        pointer-events: none;
       }
 
       .hero-inner {
+        position: relative;
+        z-index: 1;
         display: grid;
         grid-template-columns: 1.06fr 1fr;
         align-items: center;
@@ -359,6 +371,10 @@
       }
 
       .content {
+        background:
+          radial-gradient(circle at 20% 20%, rgba(156,125,255,0.18), transparent 20%),
+          radial-gradient(circle at 80% 10%, rgba(244,199,93,0.12), transparent 18%),
+          linear-gradient(180deg, #070b14 0%, #0a0d17 100%);
         padding: 10px 0 80px;
       }
 
