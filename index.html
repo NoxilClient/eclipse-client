@@ -4,43 +4,39 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Eclipse Client | Minecraft Performance Client</title>
-    <meta
-      name="description"
-      content="Eclipse Client is a high-performance Minecraft client with PvP modules, optimized FPS, and a clean drag-and-drop HUD."
-    />
+    <meta name="description" content="Eclipse Client is a high-performance Minecraft client with PvP modules, optimized FPS, and a clean drag-and-drop HUD." />
     <style>
       @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Archivo+Black&display=swap');
 
       :root {
-        --bg: #050b13;
-        --bg-2: #0a1220;
-        --panel: rgba(12, 17, 27, 0.78);
-        --panel-strong: rgba(15, 19, 28, 0.96);
+        --bg: #020a12;
+        --bg-2: #071827;
+        --bg-3: #0d1a24;
+        --panel: rgba(12, 17, 27, 0.66);
+        --panel-strong: rgba(14, 19, 31, 0.96);
         --panel-border: rgba(255, 255, 255, 0.09);
-        --muted: rgba(223, 232, 244, 0.72);
-        --text: #f4f8ff;
+        --text: #f4f7fb;
+        --muted: rgba(223, 232, 244, 0.74);
         --gold: #f7c96d;
-        --gold-strong: #f6a42a;
-        --gold-soft: rgba(247, 201, 109, 0.16);
-        --cyan: #77dcff;
-        --cyan-strong: #3aaaf0;
-        --green: #76f0bf;
-        --shadow: rgba(9, 15, 24, 0.7);
+        --gold-strong: #f3a423;
+        --gold-soft: rgba(247, 201, 109, 0.18);
+        --cyan: #7fe2ff;
+        --cyan-strong: #3eafec;
+        --green: #7ce8bf;
+        --shadow: rgba(0, 0, 0, 0.54);
       }
 
       * { box-sizing: border-box; }
-
       html { scroll-behavior: smooth; }
-
       body {
         margin: 0;
-        min-height: 100vh;
         background:
-          radial-gradient(circle at 20% 15%, rgba(255, 173, 71, 0.18), transparent 20%),
-          radial-gradient(circle at 80% 12%, rgba(120, 154, 255, 0.15), transparent 18%),
-          linear-gradient(180deg, #020810 0%, #040c18 100%);
+          radial-gradient(circle at 18% 18%, rgba(127, 167, 255, 0.18), transparent 16%),
+          radial-gradient(circle at 72% 20%, rgba(255, 180, 74, 0.13), transparent 18%),
+          linear-gradient(180deg, rgba(2, 8, 17, 1) 0%, rgba(2, 8, 14, 1) 100%);
         color: var(--text);
         font-family: 'Inter', sans-serif;
+        min-height: 100vh;
         overflow-x: hidden;
       }
 
@@ -50,15 +46,16 @@
         inset: 0;
         pointer-events: none;
         background-image:
-          radial-gradient(2px 2px at 10% 15%, rgba(255,255,255,0.8) 0, transparent 100%),
-          radial-gradient(2px 2px at 35% 22%, rgba(255,255,255,0.7) 0, transparent 100%),
-          radial-gradient(2.5px 2.5px at 62% 17%, rgba(255,255,255,0.85) 0, transparent 100%),
-          radial-gradient(2px 2px at 84% 12%, rgba(255,255,255,0.75) 0, transparent 100%),
-          radial-gradient(2px 2px at 77% 28%, rgba(255,255,255,0.78) 0, transparent 100%),
-          radial-gradient(1.8px 1.8px at 22% 38%, rgba(255,255,255,0.7) 0, transparent 100%),
-          radial-gradient(2px 2px at 55% 40%, rgba(255,255,255,0.8) 0, transparent 100%),
-          radial-gradient(1.8px 1.8px at 90% 35%, rgba(255,255,255,0.9) 0, transparent 100%);
-        opacity: 0.9;
+          radial-gradient(2px 2px at 10% 18%, rgba(255,255,255,0.95) 0, transparent 100%),
+          radial-gradient(2px 2px at 22% 30%, rgba(255,255,255,0.8) 0, transparent 100%),
+          radial-gradient(2px 2px at 36% 8%, rgba(255,255,255,0.8) 0, transparent 100%),
+          radial-gradient(1.5px 1.5px at 45% 20%, rgba(255,255,255,0.8) 0, transparent 100%),
+          radial-gradient(2px 2px at 58% 12%, rgba(255,255,255,0.7) 0, transparent 100%),
+          radial-gradient(2px 2px at 72% 22%, rgba(255,255,255,0.9) 0, transparent 100%),
+          radial-gradient(1.8px 1.8px at 82% 16%, rgba(255,255,255,0.75) 0, transparent 100%),
+          radial-gradient(2px 2px at 91% 18%, rgba(255,255,255,0.8) 0, transparent 100%),
+          radial-gradient(1.7px 1.7px at 66% 38%, rgba(255,255,255,0.7) 0, transparent 100%);
+        opacity: 0.95;
       }
 
       a { color: inherit; text-decoration: none; }
@@ -70,16 +67,16 @@
       }
 
       .container {
-        width: min(1400px, calc(100% - 44px));
+        width: min(1600px, calc(100% - 44px));
         margin: 0 auto;
       }
 
       .topbar {
         position: sticky;
         top: 0;
-        z-index: 30;
-        background: rgba(4, 9, 16, 0.68);
-        backdrop-filter: blur(12px);
+        z-index: 40;
+        background: rgba(5, 9, 18, 0.72);
+        backdrop-filter: blur(10px);
         border-bottom: 1px solid rgba(255,255,255,0.06);
       }
 
@@ -87,7 +84,7 @@
         display: flex;
         align-items: center;
         justify-content: space-between;
-        height: 90px;
+        height: 84px;
         gap: 18px;
       }
 
@@ -95,18 +92,18 @@
         display: flex;
         align-items: center;
         gap: 14px;
-        text-transform: uppercase;
-        letter-spacing: 0.18em;
         font-weight: 800;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
       }
 
       .brand-mark {
-        width: 34px;
-        height: 34px;
+        width: 32px;
+        height: 32px;
         border-radius: 50%;
         position: relative;
-        background: radial-gradient(circle at 28% 30%, #fff3d9 0%, #f6d58e 12%, #b67a17 50%, #090d13 56%, #000 100%);
-        box-shadow: 0 0 18px rgba(247, 201, 109, 0.7);
+        background: radial-gradient(circle at 30% 28%, #fff6db 0%, #f2d38d 14%, #b77817 56%, #091018 60%, #000 100%);
+        box-shadow: 0 0 16px rgba(247, 201, 109, 0.8);
       }
 
       .brand-mark::before {
@@ -114,7 +111,7 @@
         position: absolute;
         inset: 0;
         border-radius: 50%;
-        background: linear-gradient(90deg, rgba(0,0,0,0) 0 50%, rgba(0,0,0,0.92) 50% 100%);
+        background: linear-gradient(90deg, rgba(0,0,0,0) 0 50%, rgba(0,0,0,0.94) 50% 100%);
       }
 
       .brand-name {
@@ -124,14 +121,12 @@
       .nav {
         display: flex;
         align-items: center;
-        gap: clamp(20px, 3vw, 42px);
-        color: rgba(255,255,255,0.76);
+        gap: clamp(22px, 3vw, 45px);
+        color: rgba(255,255,255,0.8);
         font-weight: 500;
       }
 
-      .nav a:hover {
-        color: var(--text);
-      }
+      .nav a:hover { color: var(--text); }
 
       .download-btn,
       .primary-btn,
@@ -142,56 +137,51 @@
         transition: transform 0.18s ease, box-shadow 0.18s ease, opacity 0.18s ease;
       }
 
-      .download-btn:hover,
-      .primary-btn:hover,
-      .secondary-btn:hover,
-      .mini-btn:hover {
-        transform: translateY(-1px);
-      }
+      .download-btn:hover, .primary-btn:hover, .secondary-btn:hover, .mini-btn:hover { transform: translateY(-1px); }
 
       .download-btn {
         min-width: 170px;
-        height: 50px;
+        height: 48px;
         padding: 0 18px;
         border-radius: 10px;
-        background: linear-gradient(180deg, #f7d680 0%, #de8d19 100%);
-        color: #1c1305;
+        background: linear-gradient(180deg, #f7d67a 0%, #d68a18 100%);
+        color: #1a160f;
         font-weight: 900;
         letter-spacing: 0.12em;
         text-transform: uppercase;
-        box-shadow: 0 10px 24px rgba(248, 169, 44, 0.32);
+        box-shadow: 0 10px 22px rgba(248, 174, 48, 0.34);
       }
 
       .hero {
         position: relative;
-        padding: 32px 0 26px;
-        min-height: 760px;
+        min-height: 780px;
+        padding-top: 22px;
       }
 
       .hero-inner {
         display: grid;
-        grid-template-columns: 1.08fr 1fr;
+        grid-template-columns: 1.04fr 1fr;
         align-items: center;
-        gap: 22px;
+        gap: 18px;
       }
 
       .hero-copy {
-        padding: 10px 0 10px 8px;
+        padding: 20px 0 10px 8px;
       }
 
       .version-pill {
         display: inline-flex;
         align-items: center;
         gap: 10px;
-        margin-bottom: 24px;
+        margin-bottom: 20px;
         padding: 10px 16px;
-        background: rgba(19, 20, 29, 0.36);
-        border: 1px solid rgba(247, 201, 109, 0.7);
+        background: rgba(28, 20, 10, 0.18);
+        border: 1px solid rgba(247, 201, 109, 0.8);
         border-radius: 8px;
         color: var(--gold);
         font-size: 0.76rem;
         font-weight: 800;
-        letter-spacing: 0.12em;
+        letter-spacing: 0.13em;
         text-transform: uppercase;
       }
 
@@ -200,34 +190,27 @@
         width: 10px;
         height: 10px;
         border-radius: 3px;
-        background: linear-gradient(180deg, #ffe7a6 0%, #cf8613 100%);
-        box-shadow: 0 0 14px rgba(247, 201, 109, 0.6);
+        background: linear-gradient(180deg, #ffe9b5 0%, #d38317 100%);
+        box-shadow: 0 0 12px rgba(247, 201, 109, 0.8);
       }
 
-      h1 {
+      .hero h1 {
         margin: 0;
         font-family: 'Archivo Black', sans-serif;
-        font-size: clamp(4.4rem, 7vw, 12rem);
-        line-height: 0.82;
+        font-size: clamp(4.3rem, 7vw, 12rem);
+        line-height: 0.8;
         letter-spacing: -0.09em;
       }
 
-      .light-word {
-        display: block;
-        color: #edf4ff;
-      }
-
-      .gold-word {
-        display: block;
-        color: var(--gold);
-      }
+      .light-word { display: block; color: #edf2ff; }
+      .gold-word { display: block; color: var(--gold); }
 
       .lead {
-        max-width: 760px;
-        margin-top: 26px;
+        margin-top: 28px;
+        max-width: 720px;
         color: var(--muted);
         font-size: clamp(1.08rem, 1.6vw, 1.5rem);
-        line-height: 1.55;
+        line-height: 1.56;
       }
 
       .hero-actions {
@@ -243,26 +226,25 @@
         height: 62px;
         padding: 0 22px;
         border-radius: 12px;
-        background: linear-gradient(180deg, #f7d57d 0%, #d38118 100%);
-        color: #110d07;
-        font-size: 0.83rem;
+        background: linear-gradient(180deg, #f8d782 0%, #d48a1a 100%);
+        color: #120d06;
+        font-size: 0.82rem;
         font-weight: 900;
-        letter-spacing: 0.13em;
+        letter-spacing: 0.12em;
         text-transform: uppercase;
-        box-shadow: 0 12px 28px rgba(239, 164, 44, 0.3);
+        box-shadow: 0 12px 28px rgba(239, 163, 38, 0.36);
       }
 
       .secondary-btn {
-        min-width: 200px;
+        min-width: 180px;
         height: 62px;
         padding: 0 22px;
         border-radius: 12px;
-        background: rgba(14, 23, 32, 0.9);
-        border: 1px solid rgba(255,255,255,0.09);
+        background: rgba(17, 25, 34, 0.8);
+        border: 1px solid rgba(255,255,255,0.08);
         color: var(--text);
-        font-size: 0.8rem;
         font-weight: 800;
-        letter-spacing: 0.12em;
+        letter-spacing: 0.09em;
         text-transform: uppercase;
       }
 
@@ -271,24 +253,24 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        min-height: 640px;
+        min-height: 680px;
       }
 
       .scene {
         position: relative;
-        width: min(100%, 760px);
+        width: min(100%, 800px);
         height: 670px;
         overflow: hidden;
       }
 
       .sun-glow {
         position: absolute;
-        right: 4%;
-        top: 3%;
-        width: clamp(220px, 31vw, 520px);
+        right: 3%;
+        top: 2%;
+        width: clamp(230px, 29vw, 510px);
         aspect-ratio: 1;
         border-radius: 50%;
-        background: radial-gradient(circle, rgba(255, 220, 150, 0.52) 0%, rgba(255, 157, 34, 0.22) 30%, rgba(255, 157, 34, 0.08) 54%, transparent 72%);
+        background: radial-gradient(circle, rgba(255, 218, 142, 0.5) 0%, rgba(255, 140, 40, 0.12) 38%, transparent 72%);
         filter: blur(20px);
       }
 
@@ -296,11 +278,11 @@
         position: absolute;
         right: 8%;
         top: 9%;
-        width: clamp(190px, 27vw, 470px);
+        width: clamp(200px, 27vw, 470px);
         aspect-ratio: 1;
         border-radius: 50%;
-        background: radial-gradient(circle at 38% 35%, #fffdf9 0%, #f7d584 16%, #ecaf46 28%, #4a2a00 62%, #050b12 100%);
-        box-shadow: 0 0 28px rgba(255, 176, 67, 0.8), 0 0 100px rgba(255, 145, 34, 0.2);
+        background: radial-gradient(circle at 34% 36%, #fffefb 0%, #f2d98b 18%, #eeaf48 30%, #4a2800 58%, #090d15 100%);
+        box-shadow: 0 0 30px rgba(255, 164, 73, 0.8), 0 0 120px rgba(255, 135, 18, 0.18);
       }
 
       .sun::before {
@@ -308,7 +290,7 @@
         position: absolute;
         inset: 0;
         border-radius: 50%;
-        background: radial-gradient(circle at 34% 38%, rgba(255,255,255,0.28), transparent 30%);
+        background: radial-gradient(circle at 31% 34%, rgba(255,255,255,0.28), transparent 35%);
       }
 
       .sun::after {
@@ -316,7 +298,7 @@
         position: absolute;
         inset: 8%;
         border-radius: 50%;
-        background: radial-gradient(circle at 62% 48%, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.97) 58%, rgba(0,0,0,1) 100%);
+        background: radial-gradient(circle at 62% 48%, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.98) 55%, rgba(0,0,0,1) 100%);
         transform: translateX(46%);
         box-shadow: inset 0 0 28px rgba(0,0,0,1);
       }
@@ -325,10 +307,10 @@
         position: absolute;
         left: -4%;
         right: 0;
-        bottom: 15%;
+        bottom: 19%;
         height: 42%;
-        background: linear-gradient(180deg, rgba(11, 16, 22, 0.15), rgba(9, 15, 18, 0.6));
-        clip-path: polygon(0 100%, 0 55%, 11% 42%, 18% 66%, 29% 35%, 41% 61%, 48% 30%, 57% 62%, 66% 34%, 78% 68%, 87% 38%, 100% 51%, 100% 100%);
+        background: linear-gradient(180deg, rgba(8, 17, 22, 0.14), rgba(7, 11, 17, 0.68));
+        clip-path: polygon(0 100%, 0 54%, 10% 40%, 18% 64%, 29% 35%, 41% 61%, 49% 28%, 58% 62%, 66% 34%, 78% 68%, 88% 38%, 100% 52%, 100% 100%);
         opacity: 0.9;
       }
 
@@ -336,8 +318,8 @@
         content: "";
         position: absolute;
         inset: 0;
-        background: linear-gradient(180deg, rgba(15, 18, 21, 0.35), rgba(7, 12, 17, 0.9));
-        clip-path: polygon(0 100%, 0 68%, 12% 48%, 18% 66%, 27% 54%, 36% 74%, 52% 46%, 62% 80%, 70% 52%, 84% 76%, 100% 68%, 100% 100%);
+        background: linear-gradient(180deg, rgba(15, 27, 30, 0.38), rgba(4, 9, 13, 0.95));
+        clip-path: polygon(0 100%, 0 67%, 13% 52%, 17% 66%, 30% 56%, 38% 75%, 49% 48%, 61% 78%, 72% 50%, 84% 76%, 100% 70%, 100% 100%);
       }
 
       .lake {
@@ -345,32 +327,32 @@
         left: 0;
         right: 0;
         bottom: 0;
-        height: 26%;
-        background: linear-gradient(180deg, rgba(6, 11, 14, 0.12), rgba(5, 9, 14, 0.7) 24%, rgba(2, 7, 12, 0.95) 100%);
+        height: 25%;
+        background: linear-gradient(180deg, rgba(4, 9, 14, 0.08), rgba(6, 12, 18, 0.72) 30%, rgba(2, 6, 10, 0.96) 100%);
       }
 
       .lake::before {
         content: "";
         position: absolute;
         inset: 0;
-        background: linear-gradient(180deg, rgba(255,255,255,0.08), transparent 18%, transparent 80%, rgba(0,0,0,0.46));
-        transform: perspective(300px) rotateX(5deg);
+        background: linear-gradient(180deg, rgba(255,255,255,0.08), transparent 18%, transparent 82%, rgba(0,0,0,0.46));
+        transform: perspective(320px) rotateX(5deg);
       }
 
       .forest {
         position: absolute;
         left: -2%;
         right: -2%;
-        bottom: 8%;
+        bottom: 9%;
         height: 36%;
         background:
           repeating-linear-gradient(
             90deg,
-            rgba(9, 13, 15, 0.5) 0 14px,
-            rgba(14, 20, 18, 0.22) 14px 30px,
-            rgba(9, 14, 18, 0.4) 30px 42px
+            rgba(10, 15, 16, 0.5) 0 14px,
+            rgba(14, 20, 18, 0.14) 14px 32px,
+            rgba(11, 18, 17, 0.35) 32px 42px
           );
-        clip-path: polygon(0 100%, 0 68%, 10% 52%, 16% 72%, 22% 45%, 29% 68%, 32% 39%, 41% 73%, 46% 42%, 55% 69%, 60% 40%, 69% 75%, 73% 45%, 84% 70%, 94% 42%, 100% 66%, 100% 100%);
+        clip-path: polygon(0 100%, 0 68%, 10% 46%, 16% 73%, 22% 44%, 30% 69%, 33% 40%, 41% 74%, 46% 41%, 55% 71%, 60% 39%, 70% 76%, 74% 42%, 84% 69%, 94% 42%, 100% 67%, 100% 100%);
         opacity: 0.8;
       }
 
@@ -380,18 +362,17 @@
         right: 0;
         bottom: 16px;
         display: flex;
-        align-items: center;
         justify-content: center;
-        gap: 16px;
-        padding: 0 10px;
+        gap: 13px;
         flex-wrap: wrap;
+        padding: 0 16px;
       }
 
       .mini-btn {
-        height: 46px;
+        height: 44px;
         padding: 0 18px;
-        border-radius: 12px;
-        background: rgba(11, 18, 24, 0.7);
+        border-radius: 10px;
+        background: rgba(11, 18, 24, 0.78);
         color: var(--text);
         border: 1px solid rgba(255,255,255,0.08);
         font-weight: 700;
@@ -400,32 +381,31 @@
       }
 
       .mini-btn.primary {
-        background: linear-gradient(180deg, rgba(117, 225, 255, 0.2), rgba(25, 105, 165, 0.18));
-        border-color: rgba(119, 220, 255, 0.5);
-        color: #dff8ff;
+        background: linear-gradient(180deg, rgba(92, 214, 255, 0.2), rgba(24, 104, 180, 0.2));
+        border-color: rgba(127, 226, 255, 0.55);
+        color: #e1fbff;
       }
 
       .content {
-        padding-top: 16px;
-        padding-bottom: 80px;
+        padding: 8px 0 80px;
       }
 
       .stats-grid {
         display: grid;
         grid-template-columns: repeat(4, minmax(0, 1fr));
         gap: 18px;
-        margin-top: 24px;
+        margin-top: 18px;
       }
 
       .stat-card {
-        background: linear-gradient(180deg, rgba(16, 19, 26, 0.9), rgba(10, 15, 22, 0.93));
+        background: linear-gradient(180deg, rgba(16, 20, 29, 0.9), rgba(10, 15, 22, 0.95));
         border: 1px solid var(--panel-border);
         border-radius: 18px;
         padding: 22px 20px;
       }
 
       .stat-card .value {
-        font-size: clamp(2rem, 3vw, 3rem);
+        font-size: clamp(2rem, 2.4vw, 3rem);
         font-weight: 900;
         letter-spacing: -0.06em;
       }
@@ -437,29 +417,28 @@
       }
 
       .section {
-        padding-top: 80px;
+        padding-top: 82px;
       }
 
       .section-heading {
         display: flex;
-        justify-content: space-between;
         align-items: end;
+        justify-content: space-between;
         gap: 16px;
-        margin-bottom: 26px;
       }
 
       .eyebrow {
         display: inline-block;
         color: var(--gold);
-        letter-spacing: 0.15em;
+        font-size: 0.72rem;
+        letter-spacing: 0.16em;
         text-transform: uppercase;
         font-weight: 800;
-        font-size: 0.72rem;
       }
 
       .section-title {
         margin: 10px 0 0;
-        font-size: clamp(2.2rem, 3rem, 3.5rem);
+        font-size: clamp(2.2rem, 3vw, 3.5rem);
         letter-spacing: -0.06em;
       }
 
@@ -471,38 +450,33 @@
       }
 
       .feature-card {
-        background: linear-gradient(180deg, rgba(15, 21, 30, 0.9), rgba(8, 13, 18, 0.96));
+        background: linear-gradient(180deg, rgba(15, 20, 29, 0.9), rgba(7, 11, 17, 0.96));
         border: 1px solid rgba(255,255,255,0.08);
         border-radius: 22px;
         padding: 26px 22px;
-        min-height: 240px;
       }
 
       .feature-icon {
-        width: 52px;
-        height: 52px;
         display: flex;
         align-items: center;
         justify-content: center;
+        width: 52px;
+        height: 52px;
         border-radius: 14px;
-        background: linear-gradient(180deg, rgba(129, 218, 255, 0.18), rgba(249, 175, 48, 0.12));
+        font-size: 1.5rem;
+        background: linear-gradient(180deg, rgba(127, 226, 255, 0.2), rgba(247, 201, 109, 0.14));
         border: 1px solid rgba(255,255,255,0.08);
-        font-size: 1.4rem;
       }
 
       .feature-card h3 {
         margin: 18px 0 10px;
-        font-size: 1.44rem;
+        font-size: 1.45rem;
       }
 
       .feature-card p {
         margin: 0;
         color: var(--muted);
         line-height: 1.6;
-      }
-
-      .module-section {
-        margin-top: 26px;
       }
 
       .module-grid {
@@ -513,48 +487,45 @@
       }
 
       .module-card {
+        min-height: 118px;
         display: flex;
         align-items: center;
         justify-content: center;
-        min-height: 120px;
-        border-radius: 18px;
-        background: linear-gradient(180deg, rgba(13, 19, 28, 0.94), rgba(9, 14, 20, 0.96));
+        background: linear-gradient(180deg, rgba(13, 20, 29, 0.94), rgba(9, 14, 20, 0.96));
         border: 1px solid rgba(255,255,255,0.08);
+        border-radius: 18px;
+        text-align: center;
+        padding: 14px;
         font-weight: 700;
         letter-spacing: 0.04em;
-        color: var(--text);
-      }
-
-      .version-section {
-        margin-top: 26px;
       }
 
       .version-grid {
         display: grid;
         grid-template-columns: repeat(5, minmax(0, 1fr));
         gap: 18px;
-        margin-top: 20px;
+        margin-top: 22px;
       }
 
       .version-card {
-        background: linear-gradient(180deg, rgba(15, 21, 30, 0.96), rgba(8, 13, 18, 0.96));
-        border: 1px solid rgba(255,255,255,0.08);
+        background: linear-gradient(180deg, rgba(15, 21, 30, 0.96), rgba(8, 13, 19, 0.96));
         border-radius: 16px;
-        padding: 22px 18px;
+        border: 1px solid rgba(255,255,255,0.08);
+        padding: 20px 18px;
       }
 
       .version-tag {
         display: inline-block;
         margin-bottom: 14px;
-        padding: 6px 10px;
+        padding: 6px 9px;
         border-radius: 999px;
-        background: rgba(247, 201, 109, 0.14);
-        border: 1px solid rgba(247, 201, 109, 0.25);
         color: var(--gold);
+        background: rgba(247, 201, 109, 0.14);
+        border: 1px solid rgba(247, 201, 109, 0.26);
         font-size: 0.7rem;
-        letter-spacing: 0.08em;
         font-weight: 700;
         text-transform: uppercase;
+        letter-spacing: 0.08em;
       }
 
       .version-card h4 {
@@ -577,7 +548,7 @@
       }
 
       details {
-        background: rgba(13, 20, 30, 0.85);
+        background: rgba(13, 20, 30, 0.86);
         border: 1px solid rgba(255,255,255,0.08);
         border-radius: 18px;
         padding: 18px 18px 14px;
@@ -599,8 +570,8 @@
       }
 
       .cta-panel {
-        margin-top: 80px;
-        background: linear-gradient(135deg, rgba(19, 27, 36, 0.95), rgba(11, 17, 24, 0.96));
+        margin-top: 78px;
+        background: linear-gradient(135deg, rgba(18, 28, 38, 0.96), rgba(10, 15, 22, 0.96));
         border: 1px solid rgba(255,255,255,0.08);
         border-radius: 26px;
         padding: 34px 26px;
@@ -613,7 +584,7 @@
 
       .cta-panel h3 {
         margin: 0 0 6px;
-        font-size: clamp(1.8rem, 2.6vw, 2.6rem);
+        font-size: clamp(1.8rem, 2.8vw, 2.7rem);
         letter-spacing: -0.06em;
       }
 
@@ -636,8 +607,24 @@
         flex-wrap: wrap;
       }
 
+      .os-badge {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 120px;
+        height: 34px;
+        border-radius: 999px;
+        background: rgba(127, 226, 255, 0.12);
+        border: 1px solid rgba(127, 226, 255, 0.36);
+        color: var(--cyan);
+        font-size: 0.74rem;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        font-weight: 800;
+      }
+
       footer {
-        padding: 26px 0 48px;
+        padding: 22px 0 48px;
         color: rgba(255,255,255,0.58);
       }
 
@@ -646,88 +633,37 @@
         align-items: center;
         justify-content: space-between;
         gap: 14px;
+        flex-wrap: wrap;
         border-top: 1px solid rgba(255,255,255,0.08);
         padding-top: 22px;
-        flex-wrap: wrap;
       }
 
       @media (max-width: 1180px) {
-        .hero-inner {
-          grid-template-columns: 1fr;
-        }
-
-        .hero-art {
-          min-height: 500px;
-        }
-
+        .hero-inner,
         .feature-grid,
         .module-grid,
         .version-grid,
-        .stats-grid {
-          grid-template-columns: repeat(2, minmax(0, 1fr));
-        }
+        .stats-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+        .hero-inner { grid-template-columns: 1fr; }
+        .hero-art { min-height: 490px; }
       }
 
       @media (max-width: 760px) {
-        .container {
-          width: min(100% - 22px, 1400px);
-        }
+        .container { width: min(100% - 22px, 1600px); }
+        .nav { display: none; }
+        .topbar-inner { height: 72px; }
+        .download-btn { min-width: 132px; padding: 0 14px; }
 
-        .nav {
-          display: none;
-        }
+        .hero-copy { padding-left: 0; }
+        .hero h1 { font-size: clamp(3.3rem, 18vw, 6rem); }
+        .lead { font-size: 1.06rem; }
 
-        .topbar-inner {
-          height: 72px;
-        }
+        .primary-btn, .secondary-btn { width: 100%; }
+        .hero-actions { flex-direction: column; align-items: stretch; }
 
-        .download-btn {
-          min-width: 132px;
-          font-size: 0.72rem;
-          letter-spacing: 0.08em;
-        }
-
-        .hero {
-          padding-top: 18px;
-        }
-
-        .hero-copy {
-          padding-left: 0;
-        }
-
-        h1 {
-          font-size: clamp(3.2rem, 18vw, 6rem);
-        }
-
-        .lead {
-          font-size: 1.06rem;
-        }
-
-        .primary-btn,
-        .secondary-btn {
-          width: 100%;
-        }
-
-        .hero-actions {
-          flex-direction: column;
-          align-items: stretch;
-        }
-
-        .feature-grid,
-        .module-grid,
-        .version-grid,
-        .stats-grid,
-        .faq-wrap {
-          grid-template-columns: 1fr;
-        }
-
-        .section-heading {
-          display: block;
-        }
-
-        .cta-panel {
-          padding: 24px 18px;
-        }
+        .feature-grid, .module-grid, .version-grid, .stats-grid, .faq-wrap { grid-template-columns: 1fr; }
+        .section-heading { display: block; }
+        .cta-panel { padding: 24px 18px; }
       }
     </style>
   </head>
@@ -755,7 +691,7 @@
         <section class="hero">
           <div class="container hero-inner">
             <div class="hero-copy">
-              <div class="version-pill">v2.4.1 • Supported versions: 1.8.9 • 1.20.1 • 1.21.11 • 26.2 • 26.3</div>
+              <div class="version-pill">v0.10 • Supported versions: 1.8.9 • 1.20.1 • 1.21.11 • 26.2 • 26.3</div>
 
               <h1>
                 <span class="light-word">Outshine</span>
@@ -764,13 +700,13 @@
               </h1>
 
               <p class="lead">
-                Eclipse is the Minecraft client built for raw performance, clean PvP utility,
-                and a drag-and-drop HUD that feels effortless from the moment you launch it.
-                With 20+ modules and optimized rendering, you get speed without compromise.
+                Eclipse Client is a lightweight Minecraft client built for speed, clean PvP utility,
+                and a premium drag-and-drop HUD. With 20+ modules and optimized performance,
+                you get more control without the clutter.
               </p>
 
               <div class="hero-actions">
-                <button class="primary-btn">Download for Windows</button>
+                <button class="primary-btn" id="downloadBtn">Download for Windows</button>
                 <button class="secondary-btn">20+ Mods</button>
               </div>
             </div>
@@ -827,25 +763,19 @@
                 <article class="feature-card">
                   <div class="feature-icon">⚡</div>
                   <h3>Performance first</h3>
-                  <p>
-                    Optimized rendering, lower latency, and cleaner memory usage to keep your gameplay fast and stable.
-                  </p>
+                  <p>Optimized rendering, lower latency, and smoother memory management for better frame stability.</p>
                 </article>
 
                 <article class="feature-card">
                   <div class="feature-icon">🎯</div>
-                  <h3> PvP utility</h3>
-                  <p>
-                    Built-in tools, HUD widgets, target awareness, and motion enhancements for a sharper competitive edge.
-                  </p>
+                  <h3>PvP utility</h3>
+                  <p>Built-in modules, HUD widgets, and combat tools that improve your reaction time and awareness.</p>
                 </article>
 
                 <article class="feature-card">
                   <div class="feature-icon">🧩</div>
-                  <h3>Flexible customization</h3>
-                  <p>
-                    Reorganize modules, tweak colors, and make your interface feel like your own with drag-and-drop controls.
-                  </p>
+                  <h3>Customizable HUD</h3>
+                  <p>Organize modules with a drag-and-drop layout and change visuals to fully match your playstyle.</p>
                 </article>
               </div>
             </div>
@@ -854,26 +784,37 @@
               <div class="section-heading">
                 <div>
                   <span class="eyebrow">Modules</span>
-                  <h2 class="section-title">20+ integrated tools.</h2>
+                  <h2 class="section-title">Built-in optimization suite.</h2>
                 </div>
               </div>
 
               <div class="module-grid">
-                <div class="module-card">Auto Clicker</div>
-                <div class="module-card">Hud Editor</div>
-                <div class="module-card">Killaura</div>
-                <div class="module-card">ESP</div>
-                <div class="module-card">Reach</div>
-                <div class="module-card">Velocity</div>
-                <div class="module-card">Criticals</div>
-                <div class="module-card">Motion</div>
-                <div class="module-card">Nametags</div>
-                <div class="module-card">Radar</div>
-                <div class="module-card">Server Info</div>
-                <div class="module-card">Fps Boost</div>
-                <div class="module-card">Animations</div>
-                <div class="module-card">Target HUD</div>
-                <div class="module-card">Theme</div>
+                <div class="module-card">ArmorHud</div>
+                <div class="module-card">AutoText</div>
+                <div class="module-card">ComboCounter</div>
+                <div class="module-card">Coordinates</div>
+                <div class="module-card">CpsModule</div>
+                <div class="module-card">FPSModule</div>
+                <div class="module-card">FpsSpooferModule</div>
+                <div class="module-card">FreeLookModule</div>
+                <div class="module-card">FreeLookState</div>
+                <div class="module-card">FullbrightModule</div>
+                <div class="module-card">GpuLoad</div>
+                <div class="module-card">Keystrokes</div>
+                <div class="module-card">LightLevel</div>
+                <div class="module-card">MemoryUsage</div>
+                <div class="module-card">MotionBlurModule</div>
+                <div class="module-card">PerformanceModule</div>
+                <div class="module-card">PingDisplay</div>
+                <div class="module-card">Time</div>
+                <div class="module-card">ToggleSneak</div>
+                <div class="module-card">ToggleSprint</div>
+                <div class="module-card">Watermark</div>
+                <div class="module-card">WaypointModule</div>
+                <div class="module-card">Weather</div>
+                <div class="module-card">WindowInfo</div>
+                <div class="module-card">XpTracker</div>
+                <div class="module-card">ZoomModule</div>
               </div>
             </div>
 
@@ -889,27 +830,27 @@
                 <div class="version-card">
                   <span class="version-tag">Supported</span>
                   <h4>1.8.9</h4>
-                  <p>Classic PvP setup, stable performance, and optimal compatibility.</p>
+                  <p>Classic PvP setup with reliable compatibility and smooth performance.</p>
                 </div>
                 <div class="version-card">
                   <span class="version-tag">Supported</span>
                   <h4>1.20.1</h4>
-                  <p>Modern gameplay support with refined module behavior and speed boosts.</p>
+                  <p>Modern gameplay support with optimized utility and stronger render control.</p>
                 </div>
                 <div class="version-card">
                   <span class="version-tag">Supported</span>
                   <h4>1.21.11</h4>
-                  <p>Updated compatibility for the latest player-driven playstyle and visuals.</p>
+                  <p>Updated compatibility for latest client behavior and player-focused visual tuning.</p>
                 </div>
                 <div class="version-card">
                   <span class="version-tag">Supported</span>
                   <h4>26.2</h4>
-                  <p>Targeted support for current client optimization and rendering improvements.</p>
+                  <p>Targeted support for current performance improvements and gameplay tweaks.</p>
                 </div>
                 <div class="version-card">
                   <span class="version-tag">Supported</span>
                   <h4>26.3</h4>
-                  <p>Wide compatibility with the newest environment, ยูse-case tuning, and speed.</p>
+                  <p>Wide compatibility with current optimization paths and modern mod support.</p>
                 </div>
               </div>
             </div>
@@ -925,22 +866,22 @@
               <div class="faq-wrap">
                 <details open>
                   <summary>Does Eclipse work on older PCs?</summary>
-                  <p>Yes. Eclipse is optimized to reduce stutter, lower RAM use, and improve frame stability on lower-end hardware.</p>
+                  <p>Yes. The client is built to reduce stutter, lower RAM usage, and improve frame stability on lower-end systems.</p>
                 </details>
 
                 <details>
                   <summary>Is it easy to customize?</summary>
-                  <p>Absolutely. The HUD is drag-and-drop and modules can be enabled or disabled in seconds without fiddling with complex setup steps.</p>
+                  <p>Absolutely. The HUD is drag-and-drop and modules can be enabled or disabled in seconds without a complex setup flow.</p>
                 </details>
 
                 <details>
                   <summary>Does it support multiple Minecraft versions?</summary>
-                  <p>Yes. Eclipse supports 1.8.9, 1.20.1, 1.21.11, 26.2, and 26.3 to keep you ready for different setups.</p>
+                  <p>Yes. Eclipse supports 1.8.9, 1.20.1, 1.21.11, 26.2, and 26.3 to fit different game setups.</p>
                 </details>
 
                 <details>
-                  <summary>Can I launch it with one click?</summary>
-                  <p>Yes. The client is designed for quick launch routines, with a cleaner setup flow and minimal configuration work.</p>
+                  <summary>Does it detect the operating system automatically?</summary>
+                  <p>Yes. The download button updates based on the current platform, so it can show Windows or Linux automatically.</p>
                 </details>
               </div>
             </div>
@@ -958,7 +899,8 @@
               </div>
 
               <div class="cta-actions">
-                <button class="primary-btn">Download now</button>
+                <div class="os-badge" id="osBadge">Windows</div>
+                <button class="primary-btn" id="ctaDownload">Download now</button>
                 <button class="secondary-btn">View features</button>
               </div>
             </div>
@@ -973,5 +915,24 @@
         </div>
       </footer>
     </div>
+
+    <script>
+      (function () {
+        const userAgent = navigator.userAgent || '';
+        const isWindows = /Windows/i.test(userAgent);
+        const isLinux = /Linux/i.test(userAgent) || /X11/i.test(userAgent);
+
+        const label = isWindows ? 'Windows' : isLinux ? 'Linux' : 'Windows';
+        const buttonText = isWindows ? 'Download for Windows' : isLinux ? 'Download for Linux' : 'Download for Windows';
+
+        const osBadge = document.getElementById('osBadge');
+        const downloadBtn = document.getElementById('downloadBtn');
+        const ctaDownload = document.getElementById('ctaDownload');
+
+        if (osBadge) osBadge.textContent = label;
+        if (downloadBtn) downloadBtn.textContent = buttonText;
+        if (ctaDownload) ctaDownload.textContent = 'Download for ' + label;
+      })();
+    </script>
   </body>
 </html>
