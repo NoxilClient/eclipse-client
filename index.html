@@ -86,12 +86,30 @@
         height: 34px;
         border-radius: 50%;
         position: relative;
+        overflow: hidden;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        background: transparent;
+        box-shadow: none;
+        border: 0;
+      }
+
+      .brand-mark img {
+        width: 100%;
+        height: 100%;
+        display: block;
+        object-fit: cover;
+        border-radius: 50%;
+      }
+
+      .brand-mark.fallback-brand {
         background: radial-gradient(circle at 30% 28%, #fff 0%, #edf4ff 14%, #c5d6f3 46%, #10161c 58%, #000 100%);
         box-shadow: 0 0 18px rgba(255,255,255,0.12), 0 0 18px rgba(124, 168, 255, 0.18);
         border: 1px solid rgba(255,255,255,0.08);
       }
 
-      .brand-mark::before {
+      .brand-mark.fallback-brand::before {
         content: "";
         position: absolute;
         inset: 0;
@@ -247,6 +265,28 @@
         border-radius: 26px;
         background: linear-gradient(135deg, rgba(255,255,255,0.08), rgba(124,168,255,0.05), rgba(255,255,255,0.02));
         z-index: -1;
+      }
+
+      .hero-brand {
+        display: inline-flex;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 18px;
+        padding: 8px 14px 8px 8px;
+        border-radius: 999px;
+        background: rgba(255,255,255,0.045);
+        border: 1px solid rgba(255,255,255,0.12);
+        box-shadow: inset 0 1px 0 rgba(255,255,255,0.04);
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        font-size: 0.7rem;
+        font-weight: 800;
+        color: rgba(255,255,255,0.9);
+      }
+
+      .hero-brand .brand-mark {
+        width: 22px;
+        height: 22px;
       }
 
       .version-pill {
@@ -677,7 +717,9 @@
       <header class="topbar">
         <div class="container topbar-inner">
           <div class="brand" aria-label="Eclipse logo">
-            <div class="brand-mark"></div>
+            <div class="brand-mark">
+              <img src="logo_moon.png" alt="Eclipse moon logo" onerror="this.style.display='none'; this.parentElement.classList.add('fallback-brand');" />
+            </div>
             <div class="brand-name">Eclipse</div>
           </div>
 
@@ -698,6 +740,13 @@
 
           <div class="container hero-inner">
             <div class="hero-copy">
+              <div class="hero-brand">
+                <div class="brand-mark">
+                  <img src="logo_moon.png" alt="Eclipse moon logo" onerror="this.style.display='none'; this.parentElement.classList.add('fallback-brand');" />
+                </div>
+                <span>Eclipse</span>
+              </div>
+
               <div class="version-pill">v0.10 • Supported versions: 1.8.9 • 1.20.1 • 1.21.11 • 26.2 • 26.3</div>
 
               <h1>
@@ -879,7 +928,9 @@
             <div class="cta-panel">
               <div class="cta-branding">
                 <div class="brand" aria-label="Eclipse brand">
-                  <div class="brand-mark"></div>
+                  <div class="brand-mark">
+                    <img src="logo_moon.png" alt="Eclipse moon logo" onerror="this.style.display='none'; this.parentElement.classList.add('fallback-brand');" />
+                  </div>
                   <div class="brand-name">Eclipse</div>
                 </div>
                 <div>
