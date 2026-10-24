@@ -18,15 +18,17 @@
         --panel: rgba(11, 17, 26, 0.88);
         --panel-2: rgba(15, 23, 35, 0.96);
         --panel-3: rgba(19, 29, 41, 0.98);
-        --border: rgba(255,255,255,0.08);
+        --border: rgba(255,255,255,0.09);
         --text: #f5f8ff;
-        --text-soft: rgba(223, 231, 243, 0.8);
-        --muted: rgba(181, 196, 214, 0.78);
+        --text-soft: rgba(223, 231, 243, 0.82);
+        --muted: rgba(181, 196, 214, 0.8);
         --silver: #dbe8ff;
         --blue: #7ca8ff;
         --blue-2: #9ec0ff;
         --black: #03070d;
         --shadow: rgba(0, 0, 0, 0.42);
+        --card-glow: rgba(124, 168, 255, 0.14);
+        --hero-max: 980px;
       }
 
       * { box-sizing: border-box; }
@@ -76,7 +78,7 @@
         gap: 14px;
         font-weight: 800;
         text-transform: uppercase;
-        letter-spacing: 0.18em;
+        letter-spacing: 0.16em;
       }
 
       .brand-mark {
@@ -86,6 +88,7 @@
         position: relative;
         background: radial-gradient(circle at 30% 28%, #fff 0%, #edf4ff 14%, #c5d6f3 46%, #10161c 58%, #000 100%);
         box-shadow: 0 0 18px rgba(255,255,255,0.12), 0 0 18px rgba(124, 168, 255, 0.18);
+        border: 1px solid rgba(255,255,255,0.08);
       }
 
       .brand-mark::before {
@@ -99,6 +102,8 @@
       .brand-name {
         font-size: 1.06rem;
         color: var(--text);
+        letter-spacing: 0.22em;
+        text-shadow: 0 0 18px rgba(255,255,255,0.08);
       }
 
       .nav {
@@ -112,6 +117,7 @@
       .nav a {
         position: relative;
         transition: color 0.2s ease;
+        opacity: 0.92;
       }
 
       .nav a::after {
@@ -121,7 +127,7 @@
         bottom: -8px;
         width: 100%;
         height: 2px;
-        background: var(--white);
+        background: rgba(255,255,255,0.9);
         transform: scaleX(0);
         transform-origin: center;
         transition: transform 0.25s ease;
@@ -133,7 +139,7 @@
       .download-btn, .primary-btn, .secondary-btn {
         border: none;
         cursor: pointer;
-        transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
+        transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease, border-color 0.2s ease;
       }
 
       .download-btn:hover, .primary-btn:hover, .secondary-btn:hover {
@@ -151,12 +157,12 @@
         font-weight: 900;
         letter-spacing: 0.12em;
         text-transform: uppercase;
-        box-shadow: 0 10px 24px rgba(124, 168, 255, 0.12);
+        box-shadow: 0 12px 28px rgba(124, 168, 255, 0.12);
       }
 
       .hero {
         position: relative;
-        min-height: 820px;
+        min-height: 760px;
         padding-top: 34px;
         overflow: hidden;
         background: linear-gradient(180deg, rgba(5,10,18,0.76) 0%, rgba(7,12,20,0.96) 100%);
@@ -202,11 +208,24 @@
         grid-template-columns: 1fr;
         align-items: center;
         gap: 18px;
+        min-height: 720px;
       }
 
       .hero-copy {
-        max-width: 980px;
+        max-width: var(--hero-max);
         padding: 8px 0 8px 8px;
+        position: relative;
+      }
+
+      .hero-copy::before {
+        content: "";
+        position: absolute;
+        inset: -18px 12% auto -20px;
+        height: 110%;
+        background: linear-gradient(90deg, rgba(124, 168, 255, 0.04), rgba(124, 168, 255, 0));
+        border-left: 1px solid rgba(255,255,255,0.06);
+        border-radius: 28px;
+        pointer-events: none;
       }
 
       .version-pill {
@@ -223,6 +242,9 @@
         font-weight: 800;
         letter-spacing: 0.12em;
         text-transform: uppercase;
+        box-shadow: inset 0 1px 0 rgba(255,255,255,0.04);
+        position: relative;
+        z-index: 1;
       }
 
       .version-pill::before {
@@ -236,11 +258,14 @@
 
       .hero h1 {
         margin: 0;
+        max-width: 980px;
         font-family: 'Archivo Black', sans-serif;
         font-size: clamp(4.2rem, 7vw, 12rem);
-        line-height: 0.76;
+        line-height: 0.72;
         letter-spacing: -0.09em;
         text-shadow: 0 0 22px rgba(255,255,255,0.06);
+        position: relative;
+        z-index: 1;
       }
 
       .light-word { display: block; color: #f6f9ff; }
@@ -253,6 +278,8 @@
         line-height: 1.55;
         color: rgba(225, 233, 245, 0.78);
         font-weight: 500;
+        position: relative;
+        z-index: 1;
       }
 
       .hero-actions {
@@ -261,6 +288,8 @@
         gap: 16px;
         flex-wrap: wrap;
         margin-top: 32px;
+        position: relative;
+        z-index: 1;
       }
 
       .primary-btn {
@@ -274,7 +303,7 @@
         font-weight: 900;
         letter-spacing: 0.12em;
         text-transform: uppercase;
-        box-shadow: 0 16px 30px rgba(255,255,255,0.05);
+        box-shadow: 0 16px 30px rgba(255,255,255,0.06), 0 0 0 1px rgba(255,255,255,0.04);
       }
 
       .secondary-btn {
@@ -346,13 +375,14 @@
         border: 1px solid var(--border);
         border-radius: 22px;
         padding: 24px 22px;
-        box-shadow: 0 18px 36px rgba(0,0,0,0.18);
+        box-shadow: 0 18px 36px rgba(0,0,0,0.18), inset 0 1px 0 rgba(255,255,255,0.02);
       }
 
       .stat-card .value {
         font-size: clamp(2rem, 2.5vw, 3rem);
         font-weight: 900;
         letter-spacing: -0.06em;
+        color: var(--text);
       }
 
       .stat-card .label {
@@ -386,6 +416,7 @@
         font-size: clamp(2.3rem, 3vw, 3.7rem);
         letter-spacing: -0.06em;
         line-height: 1.02;
+        color: var(--text);
       }
 
       .feature-grid {
@@ -400,13 +431,14 @@
         border: 1px solid var(--border);
         border-radius: 24px;
         padding: 28px 24px;
-        box-shadow: 0 18px 35px rgba(0,0,0,0.14);
-        transition: transform 0.25s ease, box-shadow 0.25s ease;
+        box-shadow: 0 18px 35px rgba(0,0,0,0.14), inset 0 1px 0 rgba(255,255,255,0.02);
+        transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
       }
 
       .feature-card:hover {
         transform: translateY(-6px);
-        box-shadow: 0 24px 42px rgba(0,0,0,0.2);
+        box-shadow: 0 24px 42px rgba(0,0,0,0.2), 0 0 0 1px rgba(124,168,255,0.06);
+        border-color: rgba(146, 184, 255, 0.18);
       }
 
       .feature-icon {
@@ -419,12 +451,14 @@
         font-size: 1.5rem;
         background: rgba(255,255,255,0.04);
         border: 1px solid rgba(255,255,255,0.08);
+        box-shadow: inset 0 1px 0 rgba(255,255,255,0.04);
       }
 
       .feature-card h3 {
         margin: 18px 0 10px;
         font-size: 1.6rem;
         letter-spacing: -0.04em;
+        color: var(--text);
       }
 
       .feature-card p {
@@ -448,17 +482,19 @@
         text-align: center;
         padding: 14px;
         background: linear-gradient(180deg, rgba(16, 22, 32, 0.96), rgba(8, 13, 19, 0.98));
-        border: 1px solid rgba(255,255,255,0.06);
+        border: 1px solid rgba(255,255,255,0.07);
         border-radius: 18px;
         font-weight: 700;
+        color: rgba(245,248,255,0.9);
         letter-spacing: 0.04em;
-        box-shadow: 0 12px 22px rgba(0,0,0,0.14);
-        transition: transform 0.2s ease, box-shadow 0.2s ease;
+        box-shadow: 0 12px 22px rgba(0,0,0,0.14), inset 0 1px 0 rgba(255,255,255,0.03);
+        transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
       }
 
       .module-card:hover {
         transform: translateY(-4px);
         box-shadow: 0 14px 28px rgba(0,0,0,0.18);
+        border-color: rgba(146, 184, 255, 0.18);
       }
 
       .version-grid {
@@ -500,6 +536,7 @@
         margin: 0;
         font-size: clamp(1.45rem, 2vw, 2.1rem);
         letter-spacing: -0.06em;
+        color: var(--text);
       }
 
       .version-card p {
@@ -534,6 +571,7 @@
         list-style: none;
         font-weight: 700;
         font-size: 1.04rem;
+        color: var(--text);
       }
 
       details summary::-webkit-details-marker { display: none; }
@@ -562,6 +600,7 @@
         margin: 0 0 6px;
         font-size: clamp(1.9rem, 2.8vw, 2.9rem);
         letter-spacing: -0.06em;
+        color: var(--text);
       }
 
       .cta-panel p {
@@ -644,7 +683,7 @@
       }
 
       @media (max-width: 1180px) {
-        .hero-inner { grid-template-columns: 1fr; }
+        .hero-inner { grid-template-columns: 1fr; min-height: 660px; }
         .feature-grid, .module-grid, .version-grid, .stats-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       }
 
@@ -654,7 +693,9 @@
         .topbar-inner { height: 72px; }
         .download-btn { min-width: 132px; padding: 0 14px; }
 
+        .hero { min-height: 630px; }
         .hero-copy { padding-left: 0; }
+        .hero-copy::before { inset: -14px -4% auto -4%; height: 110%; }
         .hero h1 { font-size: clamp(3.2rem, 18vw, 6rem); }
         .lead { font-size: 1.05rem; }
         .primary-btn, .secondary-btn { width: 100%; }
