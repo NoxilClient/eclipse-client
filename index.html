@@ -171,10 +171,13 @@
       .space-bg {
         position: absolute;
         inset: 0;
-        background:
-          radial-gradient(circle at 22% 18%, rgba(124,168,255,0.12), transparent 20%),
-          radial-gradient(circle at 76% 14%, rgba(255,255,255,0.04), transparent 16%),
-          linear-gradient(180deg, #040a12 0%, #09131d 28%, #0d1723 100%);
+        background-image: url('eclipsebackground.jpeg');
+        background-size: cover;
+        background-position: center center;
+        background-repeat: no-repeat;
+        opacity: 0.22;
+        filter: saturate(1.1) contrast(1.08) brightness(0.9);
+        transform: scale(1.05);
       }
 
       .space-bg::before, .space-bg::after {
