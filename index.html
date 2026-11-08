@@ -7,245 +7,110 @@
     <title>Divine Client | Beyond the ordinary</title>
     <meta name="description" content="Divine Client: a premium Minecraft experience for performance, PvP utility, and a customizable HUD." />
     <style>
-      @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+      @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap');
 
       :root {
         color-scheme: dark;
         --bg: #05050a;
-        --bg-soft: #090a12;
-        --panel: rgba(15, 16, 25, .82);
-        --panel-solid: #10111a;
+        --panel: #101018;
         --line: rgba(224, 225, 255, .1);
         --text: #f5f4ff;
-        --muted: #a4a4b7;
-        --violet: #a78bfa;
-        --cyan: #8bdcff;
-        --gold: #e8d8a8;
+        --muted: #aaa9bb;
+        --violet: #ad97ff;
+        --cyan: #a4e3ff;
         --container: 1240px;
       }
-
       * { box-sizing: border-box; }
-      html { scroll-behavior: smooth; scroll-padding-top: 96px; }
-      body {
-        margin: 0;
-        min-width: 320px;
-        overflow-x: hidden;
-        background: var(--bg);
-        color: var(--text);
-        font-family: 'DM Sans', sans-serif;
-        -webkit-font-smoothing: antialiased;
-      }
+      html { scroll-behavior: smooth; scroll-padding-top: 90px; }
+      body { margin: 0; min-width: 320px; overflow-x: hidden; background: var(--bg); color: var(--text); font-family: 'DM Sans', sans-serif; -webkit-font-smoothing: antialiased; }
       a { color: inherit; text-decoration: none; }
-      button { font: inherit; }
       .container { width: min(var(--container), calc(100% - 48px)); margin: 0 auto; }
 
-      .topbar {
-        position: sticky;
-        top: 0;
-        z-index: 20;
-        background: rgba(5, 5, 10, .78);
-        border-bottom: 1px solid rgba(255,255,255,.07);
-        backdrop-filter: blur(18px);
-      }
-      .topbar-inner { height: 78px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
-      .brand { display: inline-flex; align-items: center; gap: 12px; font: 700 .9rem 'Space Grotesk', sans-serif; letter-spacing: .2em; text-transform: uppercase; }
-      .brand-mark { width: 34px; height: 34px; object-fit: contain; filter: drop-shadow(0 0 12px rgba(188,166,255,.32)); }
-      .nav { display: flex; gap: clamp(18px, 3vw, 38px); color: #b7b6c8; font-size: .88rem; font-weight: 600; }
+      .topbar { position: sticky; top: 0; z-index: 20; background: rgba(5,5,10,.82); border-bottom: 1px solid rgba(255,255,255,.07); backdrop-filter: blur(18px); }
+      .topbar-inner { height: 76px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+      .brand { display: inline-flex; align-items: center; gap: 11px; font: 700 .88rem 'Space Grotesk', sans-serif; letter-spacing: .18em; text-transform: uppercase; }
+      .brand-mark { width: 32px; height: 32px; object-fit: contain; filter: drop-shadow(0 0 12px rgba(188,166,255,.35)); }
+      .nav { display: flex; gap: clamp(18px,3vw,38px); color: #b7b6c8; font-size: .88rem; font-weight: 600; }
       .nav a { transition: color .2s ease; }
       .nav a:hover { color: #fff; }
-
-      .button {
-        min-height: 48px;
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        gap: 10px;
-        padding: 0 22px;
-        border: 1px solid transparent;
-        border-radius: 12px;
-        cursor: pointer;
-        font-size: .76rem;
-        font-weight: 800;
-        letter-spacing: .1em;
-        text-transform: uppercase;
-        transition: transform .2s ease, box-shadow .2s ease, background .2s ease, border-color .2s ease;
-      }
+      .button { min-height: 48px; display: inline-flex; align-items: center; justify-content: center; gap: 10px; padding: 0 22px; border: 1px solid transparent; border-radius: 12px; cursor: pointer; font-size: .74rem; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; transition: transform .2s ease, box-shadow .2s ease, background .2s ease, border-color .2s ease; }
       .button:hover { transform: translateY(-2px); }
-      .button-primary {
-        color: #0a0910;
-        background: linear-gradient(135deg, #f3edff 0%, #c8b7ff 55%, #a9deff 100%);
-        box-shadow: 0 10px 32px rgba(158, 133, 255, .25), inset 0 1px 0 rgba(255,255,255,.82);
-      }
-      .button-primary:hover { box-shadow: 0 14px 38px rgba(158, 133, 255, .38), inset 0 1px 0 rgba(255,255,255,.9); }
-      .button-quiet { color: #f1efff; background: rgba(18,18,30,.76); border-color: rgba(221,215,255,.24); box-shadow: inset 0 1px 0 rgba(255,255,255,.06); }
+      .button-primary { color: #0a0910; background: linear-gradient(135deg,#f3edff,#c8b7ff 55%,#a9deff); box-shadow: 0 10px 32px rgba(158,133,255,.25), inset 0 1px 0 rgba(255,255,255,.82); }
+      .button-primary:hover { box-shadow: 0 14px 38px rgba(158,133,255,.38), inset 0 1px 0 rgba(255,255,255,.9); }
+      .button-quiet { color: #f1efff; background: rgba(18,18,30,.76); border-color: rgba(221,215,255,.24); }
       .button-quiet:hover { background: rgba(35,31,53,.9); border-color: rgba(196,177,255,.55); }
-      .button:focus-visible, a:focus-visible { outline: 2px solid var(--cyan); outline-offset: 4px; }
+      a:focus-visible { outline: 2px solid var(--cyan); outline-offset: 4px; }
 
-      .hero {
-        position: relative;
-        isolation: isolate;
-        min-height: min(790px, calc(100svh - 78px));
-        display: grid;
-        align-items: center;
-        overflow: hidden;
-        background: #070710;
-      }
-      .hero-bg {
-        position: absolute;
-        z-index: -3;
-        inset: 0;
-        background: url('eclipsebackground.png') center 46% / cover no-repeat;
-        opacity: .43;
-        filter: brightness(.55) saturate(.72) contrast(1.12);
-        transform: scale(1.025);
-      }
-      .hero::before {
-        content: "";
-        position: absolute;
-        z-index: -2;
-        inset: 0;
-        background:
-          linear-gradient(90deg, rgba(5,5,10,.94) 0%, rgba(5,5,10,.76) 42%, rgba(5,5,10,.22) 100%),
-          linear-gradient(180deg, rgba(5,5,10,.28) 0%, rgba(5,5,10,.14) 60%, #07070d 100%);
-      }
-      .nebula {
-        position: absolute;
-        z-index: -1;
-        width: min(70vw, 800px);
-        aspect-ratio: 1;
-        right: -15%;
-        top: -38%;
-        border-radius: 50%;
-        background: radial-gradient(circle, rgba(127,91,224,.18), rgba(71,76,151,.08) 35%, transparent 68%);
-        filter: blur(30px);
-        pointer-events: none;
-      }
-      .planet {
-        position: absolute;
-        z-index: -1;
-        border-radius: 50%;
-        pointer-events: none;
-        box-shadow: inset -35px -22px 48px rgba(0,0,0,.78), inset 12px 5px 24px rgba(255,255,255,.12), 0 0 70px rgba(139,113,255,.16);
-      }
-      .planet-one {
-        width: clamp(190px, 28vw, 390px);
-        aspect-ratio: 1;
-        right: clamp(5%, 10vw, 150px);
-        top: 16%;
-        background:
-          radial-gradient(ellipse at 29% 27%, rgba(255,255,255,.42), transparent 3%),
-          radial-gradient(ellipse at 37% 34%, #c6b6ff 0%, #7163a7 21%, #3b355e 48%, #161521 72%);
-        opacity: .77;
-      }
-      .planet-one::after {
-        content: "";
-        position: absolute;
-        width: 145%;
-        height: 32%;
-        left: -22%;
-        top: 37%;
-        border: 2px solid rgba(207,195,255,.42);
-        border-left-color: rgba(191,178,255,.1);
-        border-right-color: rgba(228,219,255,.58);
-        border-radius: 50%;
-        transform: rotate(-23deg);
-        box-shadow: 0 0 18px rgba(174,151,255,.18);
-      }
-      .planet-two {
-        width: clamp(62px, 8vw, 110px);
-        aspect-ratio: 1;
-        right: 7%;
-        bottom: 12%;
-        background: radial-gradient(circle at 30% 26%, #d2e8ff, #637d9e 32%, #283449 68%, #090b12 100%);
-        opacity: .62;
-      }
-
+      /* CSS-only space scene: intentionally no Eclipse image or external background asset. */
+      .hero { position: relative; isolation: isolate; min-height: min(790px, calc(100svh - 76px)); display: grid; align-items: center; overflow: hidden; background: radial-gradient(ellipse at 75% 42%,#16132a 0%,#0b0a15 36%,#06060c 72%); }
+      .hero::before { content: ''; position: absolute; z-index: -2; inset: 0; opacity: .58; background-image: radial-gradient(1px 1px at 8% 18%,#fff 60%,transparent),radial-gradient(1px 1px at 19% 73%,#c9bdff 60%,transparent),radial-gradient(1px 1px at 34% 26%,#fff 60%,transparent),radial-gradient(1px 1px at 48% 82%,#dceaff 60%,transparent),radial-gradient(1px 1px at 64% 14%,#fff 60%,transparent),radial-gradient(1px 1px at 91% 68%,#d8ceff 60%,transparent),radial-gradient(2px 2px at 77% 27%,#fff 55%,transparent),radial-gradient(1px 1px at 56% 48%,#fff 60%,transparent),radial-gradient(1px 1px at 27% 49%,#fff 60%,transparent),radial-gradient(1px 1px at 87% 11%,#fff 60%,transparent); background-size: 100% 100%; pointer-events: none; }
+      .hero::after { content: ''; position: absolute; z-index: -2; inset: 0; background: linear-gradient(90deg,rgba(5,5,10,.4),transparent 65%),linear-gradient(180deg,rgba(5,5,10,.08),transparent 65%,#080810); pointer-events: none; }
+      .nebula { position: absolute; z-index: -1; width: min(70vw,800px); aspect-ratio: 1; right: -14%; top: -38%; border-radius: 50%; background: radial-gradient(circle,rgba(127,91,224,.22),rgba(71,76,151,.09) 37%,transparent 69%); filter: blur(28px); pointer-events: none; }
+      .planet { position: absolute; z-index: -1; border-radius: 50%; pointer-events: none; }
+      .planet-one { width: clamp(190px,28vw,390px); aspect-ratio: 1; right: clamp(5%,10vw,150px); top: 17%; background: radial-gradient(ellipse at 29% 27%,rgba(255,255,255,.5),transparent 3%),radial-gradient(ellipse at 37% 34%,#b7a3ff 0%,#62548e 22%,#332c50 48%,#13121d 73%); box-shadow: inset -42px -26px 58px rgba(0,0,0,.82),inset 12px 5px 24px rgba(255,255,255,.15),0 0 90px rgba(139,113,255,.2); opacity: .8; }
+      .planet-one::after { content: ''; position: absolute; width: 145%; height: 32%; left: -22%; top: 37%; border: 2px solid rgba(207,195,255,.48); border-left-color: rgba(191,178,255,.08); border-right-color: rgba(228,219,255,.62); border-radius: 50%; transform: rotate(-23deg); box-shadow: 0 0 22px rgba(174,151,255,.2); }
+      .planet-two { width: clamp(58px,8vw,104px); aspect-ratio: 1; right: 7%; bottom: 10%; background: radial-gradient(circle at 30% 26%,#d2e8ff,#637d9e 32%,#283449 68%,#090b12); box-shadow: inset -12px -10px 20px #000,0 0 34px rgba(130,174,255,.18); opacity: .7; }
       .hero-content { position: relative; z-index: 2; padding: 88px 0 100px; }
-      .hero-copy {
-        max-width: 760px;
-        padding: clamp(24px, 4vw, 48px);
-        border: 1px solid rgba(235,230,255,.13);
-        border-radius: 28px;
-        background: linear-gradient(135deg, rgba(8,8,17,.83), rgba(8,8,16,.55));
-        box-shadow: 0 32px 100px rgba(0,0,0,.42), inset 0 1px 0 rgba(255,255,255,.07);
-        backdrop-filter: blur(14px);
-      }
-      .hero-brand { display: flex; align-items: center; gap: 12px; margin-bottom: 28px; color: #e4dfff; font: 700 .76rem 'Space Grotesk', sans-serif; letter-spacing: .24em; text-transform: uppercase; }
-      .hero-brand img { width: 32px; height: 32px; object-fit: contain; filter: drop-shadow(0 0 12px rgba(188,166,255,.38)); }
-      .eyebrow { color: #c5b5ff; font-size: .69rem; font-weight: 800; letter-spacing: .2em; text-transform: uppercase; }
-      .hero h1 { margin: 18px 0 0; font: 700 clamp(4rem, 9.5vw, 8.5rem)/.87 'Space Grotesk', sans-serif; letter-spacing: -.095em; text-wrap: balance; }
+      .hero-copy { max-width: 760px; padding: clamp(24px,4vw,48px); border: 1px solid rgba(235,230,255,.13); border-radius: 28px; background: linear-gradient(135deg,rgba(8,8,17,.88),rgba(8,8,16,.68)); box-shadow: 0 32px 100px rgba(0,0,0,.48),inset 0 1px 0 rgba(255,255,255,.07); backdrop-filter: blur(14px); }
+      .hero-brand { display: flex; align-items: center; gap: 12px; margin-bottom: 28px; color: #e4dfff; font: 700 .76rem 'Space Grotesk',sans-serif; letter-spacing: .24em; text-transform: uppercase; }
+      .hero-brand img { width: 32px; height: 32px; object-fit: contain; filter: drop-shadow(0 0 12px rgba(188,166,255,.4)); }
+      .eyebrow { color: #c5b5ff; font-size: .68rem; font-weight: 800; letter-spacing: .2em; text-transform: uppercase; }
+      .hero h1 { margin: 18px 0 0; font: 700 clamp(4rem,9.5vw,8.5rem)/.87 'Space Grotesk',sans-serif; letter-spacing: -.095em; text-wrap: balance; }
       .hero h1 span { display: block; }
-      .hero h1 .accent { padding: .04em .04em .12em 0; color: transparent; background: linear-gradient(100deg, #fff 4%, #d8ccff 40%, #a8ddff 82%); background-clip: text; -webkit-background-clip: text; filter: drop-shadow(0 0 28px rgba(157,133,255,.2)); }
-      .hero-lead { max-width: 570px; margin: 26px 0 0; color: #c5c3d4; font-size: clamp(1rem, 1.5vw, 1.17rem); line-height: 1.75; }
+      .hero h1 .accent { padding: .04em .04em .12em 0; color: transparent; background: linear-gradient(100deg,#fff 4%,#d8ccff 40%,#a8ddff 82%); background-clip: text; -webkit-background-clip: text; filter: drop-shadow(0 0 28px rgba(157,133,255,.2)); }
+      .hero-lead { max-width: 570px; margin: 26px 0 0; color: #d0cede; font-size: clamp(1rem,1.5vw,1.17rem); line-height: 1.75; }
       .hero-actions { display: flex; flex-wrap: wrap; gap: 13px; margin-top: 32px; }
-      .hero-note { margin: 22px 0 0; color: #88879a; font-size: .76rem; letter-spacing: .05em; }
+      .hero-note { margin: 22px 0 0; color: #9694a8; font-size: .76rem; letter-spacing: .05em; }
 
-      .content { position: relative; background: linear-gradient(180deg, #080810, #090a12 38%, #07070d); padding: 0 0 100px; }
-      .stats-grid { position: relative; z-index: 2; display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: 14px; margin-top: -36px; }
-      .stat-card, .feature-card, .version-card, .faq-card, .module-card {
-        border: 1px solid rgba(226,223,255,.09);
-        background: linear-gradient(145deg, rgba(20,20,32,.96), rgba(11,12,20,.96));
-        box-shadow: 0 18px 50px rgba(0,0,0,.2), inset 0 1px 0 rgba(255,255,255,.025);
-      }
+      .content { position: relative; background: linear-gradient(180deg,#080810,#090a12 38%,#07070d); padding: 0 0 100px; }
+      .stats-grid { position: relative; z-index: 2; display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: 14px; margin-top: -36px; }
+      .stat-card,.feature-card,.version-card,.faq-card,.module-card { border: 1px solid rgba(226,223,255,.1); background: linear-gradient(145deg,rgba(20,20,32,.97),rgba(11,12,20,.97)); box-shadow: 0 18px 50px rgba(0,0,0,.22),inset 0 1px 0 rgba(255,255,255,.025); }
       .stat-card { min-height: 126px; padding: 24px; border-radius: 18px; }
-      .stat-value { color: #f3efff; font: 700 clamp(1.8rem, 3vw, 2.65rem)/1 'Space Grotesk', sans-serif; letter-spacing: -.07em; }
-      .stat-label { margin-top: 10px; color: #aaa9bb; font-size: .85rem; }
-
+      .stat-value { color: #f3efff; font: 700 clamp(1.8rem,3vw,2.65rem)/1 'Space Grotesk',sans-serif; letter-spacing: -.07em; }
+      .stat-label { margin-top: 10px; color: #b6b4c6; font-size: .85rem; }
       .section { padding-top: 100px; }
       .section-heading { max-width: 690px; margin-bottom: 30px; }
-      .section-title { margin: 12px 0 0; color: #f4f2ff; font: 600 clamp(2.1rem, 4.7vw, 3.65rem)/1.04 'Space Grotesk', sans-serif; letter-spacing: -.065em; }
-      .section-intro { max-width: 590px; margin: 15px 0 0; color: #aeadbf; line-height: 1.75; }
+      .section-title { margin: 12px 0 0; color: #f4f2ff; font: 600 clamp(2.1rem,4.7vw,3.65rem)/1.04 'Space Grotesk',sans-serif; letter-spacing: -.065em; }
+      .section-intro { max-width: 590px; margin: 15px 0 0; color: #b8b6c8; line-height: 1.75; }
       .feature-grid { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 18px; }
-      .feature-card { min-height: 230px; padding: 28px; border-radius: 20px; transition: transform .25s ease, border-color .25s ease, box-shadow .25s ease; }
-      .feature-card:hover, .version-card:hover, .module-card:hover { transform: translateY(-4px); border-color: rgba(176,157,255,.3); box-shadow: 0 22px 55px rgba(0,0,0,.3), 0 0 30px rgba(122,99,211,.07); }
-      .feature-icon { width: 46px; height: 46px; display: grid; place-items: center; border: 1px solid rgba(190,173,255,.18); border-radius: 14px; background: rgba(139,112,255,.1); color: #d7cdff; font-size: 1.25rem; }
-      .feature-card h3 { margin: 22px 0 9px; color: #f0edff; font: 600 1.25rem 'Space Grotesk', sans-serif; }
-      .feature-card p { margin: 0; color: #aaa9bb; line-height: 1.7; font-size: .94rem; }
-
+      .feature-card { min-height: 230px; padding: 28px; border-radius: 20px; transition: transform .25s ease,border-color .25s ease,box-shadow .25s ease; }
+      .feature-card:hover,.version-card:hover,.module-card:hover { transform: translateY(-4px); border-color: rgba(176,157,255,.34); box-shadow: 0 22px 55px rgba(0,0,0,.34),0 0 30px rgba(122,99,211,.08); }
+      .feature-icon { width: 46px; height: 46px; display: grid; place-items: center; border: 1px solid rgba(190,173,255,.22); border-radius: 14px; background: rgba(139,112,255,.12); color: #e1d9ff; font-size: 1.25rem; }
+      .feature-card h3 { margin: 22px 0 9px; color: #f0edff; font: 600 1.25rem 'Space Grotesk',sans-serif; }
+      .feature-card p { margin: 0; color: #b8b6c8; line-height: 1.7; font-size: .94rem; }
       .module-grid { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: 11px; }
-      .module-card { min-height: 58px; display: flex; align-items: center; padding: 13px 16px; border-radius: 13px; color: #d4d2e2; font-size: .86rem; font-weight: 600; transition: transform .2s ease, border-color .2s ease, box-shadow .2s ease; }
-      .module-card::before { content: ""; width: 6px; height: 6px; flex: 0 0 auto; margin-right: 11px; border-radius: 50%; background: #a994ff; box-shadow: 0 0 12px rgba(169,148,255,.65); }
-
+      .module-card { min-height: 58px; display: flex; align-items: center; padding: 13px 16px; border-radius: 13px; color: #e0deed; font-size: .86rem; font-weight: 600; transition: transform .2s ease,border-color .2s ease,box-shadow .2s ease; }
+      .module-card::before { content: ''; width: 6px; height: 6px; flex: 0 0 auto; margin-right: 11px; border-radius: 50%; background: #ad97ff; box-shadow: 0 0 12px rgba(169,148,255,.65); }
       .version-grid { display: grid; grid-template-columns: repeat(5,minmax(0,1fr)); gap: 14px; }
-      .version-card { padding: 22px 18px; border-radius: 17px; transition: transform .2s ease, border-color .2s ease, box-shadow .2s ease; }
-      .version-tag { display: inline-flex; margin-bottom: 15px; padding: 6px 9px; border: 1px solid rgba(167,139,250,.2); border-radius: 99px; background: rgba(167,139,250,.08); color: #cbbdff; font-size: .62rem; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
-      .version-card h3 { margin: 0; color: #f2efff; font: 600 1.65rem 'Space Grotesk', sans-serif; letter-spacing: -.05em; }
-      .version-card p { margin: 10px 0 0; color: #aaa9bb; font-size: .83rem; line-height: 1.6; }
-
+      .version-card { padding: 22px 18px; border-radius: 17px; transition: transform .2s ease,border-color .2s ease,box-shadow .2s ease; }
+      .version-tag { display: inline-flex; margin-bottom: 15px; padding: 6px 9px; border: 1px solid rgba(167,139,250,.24); border-radius: 99px; background: rgba(167,139,250,.1); color: #d4caff; font-size: .62rem; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
+      .version-card h3 { margin: 0; color: #f2efff; font: 600 1.65rem 'Space Grotesk',sans-serif; letter-spacing: -.05em; }
+      .version-card p { margin: 10px 0 0; color: #b8b6c8; font-size: .83rem; line-height: 1.6; }
       .faq-grid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 13px; }
       .faq-card { padding: 21px 22px; border-radius: 16px; }
       .faq-card summary { color: #eeecfa; cursor: pointer; font-weight: 700; line-height: 1.5; }
-      .faq-card p { margin: 12px 0 0; color: #aaa9bb; line-height: 1.7; font-size: .91rem; }
-
-      .cta-panel { position: relative; overflow: hidden; display: flex; align-items: center; justify-content: space-between; gap: 28px; margin-top: 100px; padding: clamp(26px, 5vw, 48px); border: 1px solid rgba(187,167,255,.2); border-radius: 24px; background: radial-gradient(ellipse at 100% 0%, rgba(131,101,224,.19), transparent 42%), linear-gradient(130deg, #14131f, #0b0b13 70%); box-shadow: 0 24px 70px rgba(0,0,0,.28); }
-      .cta-panel h2 { margin: 0; color: #f4f1ff; font: 600 clamp(1.8rem,3.8vw,2.7rem)/1.08 'Space Grotesk', sans-serif; letter-spacing: -.06em; }
-      .cta-panel p { margin: 11px 0 0; color: #aaa9bb; }
+      .faq-card p { margin: 12px 0 0; color: #b8b6c8; line-height: 1.7; font-size: .91rem; }
+      .cta-panel { position: relative; overflow: hidden; display: flex; align-items: center; justify-content: space-between; gap: 28px; margin-top: 100px; padding: clamp(26px,5vw,48px); border: 1px solid rgba(187,167,255,.22); border-radius: 24px; background: radial-gradient(ellipse at 100% 0%,rgba(131,101,224,.2),transparent 42%),linear-gradient(130deg,#14131f,#0b0b13 70%); box-shadow: 0 24px 70px rgba(0,0,0,.3); }
+      .cta-panel h2 { margin: 0; color: #f4f1ff; font: 600 clamp(1.8rem,3.8vw,2.7rem)/1.08 'Space Grotesk',sans-serif; letter-spacing: -.06em; }
+      .cta-panel p { margin: 11px 0 0; color: #b8b6c8; }
       .cta-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; }
-      .os-badge { padding: 10px 13px; border: 1px solid rgba(255,255,255,.1); border-radius: 99px; color: #d3d0e3; background: rgba(255,255,255,.035); font-size: .7rem; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
-      footer { padding: 26px 0 38px; color: #777688; font-size: .8rem; }
+      .os-badge { padding: 10px 13px; border: 1px solid rgba(255,255,255,.12); border-radius: 99px; color: #dfdced; background: rgba(255,255,255,.04); font-size: .7rem; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
+      footer { padding: 26px 0 38px; color: #9290a2; font-size: .8rem; }
       .footer-inner { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 14px; padding-top: 22px; border-top: 1px solid rgba(255,255,255,.08); }
 
-      @media (max-width: 980px) {
-        .hero { min-height: 700px; }
-        .planet-one { right: -3%; top: 11%; opacity: .48; }
-        .feature-grid { grid-template-columns: repeat(2,minmax(0,1fr)); }
-        .version-grid { grid-template-columns: repeat(3,minmax(0,1fr)); }
-        .module-grid { grid-template-columns: repeat(3,minmax(0,1fr)); }
-      }
+      @media (max-width: 980px) { .hero { min-height: 700px; }.planet-one { right: -3%; top: 11%; opacity: .48; }.feature-grid { grid-template-columns: repeat(2,minmax(0,1fr)); }.version-grid { grid-template-columns: repeat(3,minmax(0,1fr)); }.module-grid { grid-template-columns: repeat(3,minmax(0,1fr)); } }
       @media (max-width: 700px) {
-        .container { width: min(var(--container), calc(100% - 32px)); }
+        .container { width: min(var(--container),calc(100% - 32px)); }
         .topbar-inner { height: 68px; }
         .nav { display: none; }
         .topbar .button { min-height: 42px; padding: 0 14px; font-size: .65rem; }
         .hero { min-height: auto; }
-        .hero-bg { background-position: 58% center; opacity: .34; }
-        .hero::before { background: linear-gradient(90deg, rgba(5,5,10,.85), rgba(5,5,10,.56)), linear-gradient(180deg, rgba(5,5,10,.22), #07070d 100%); }
         .planet-one { width: 220px; right: -85px; top: 9%; opacity: .32; }
         .planet-two { right: 8%; bottom: 7%; }
-        .hero-content { padding: 88px 0 78px; }
-        .hero-copy { padding: 24px 20px; border-radius: 21px; background: rgba(7,7,14,.77); backdrop-filter: blur(12px); }
+        .hero-content { padding: 76px 0 78px; }
+        .hero-copy { padding: 24px 20px; border-radius: 21px; background: rgba(7,7,14,.86); }
         .hero-brand { margin-bottom: 23px; }
-        .hero h1 { font-size: clamp(3.55rem, 16vw, 6.2rem); }
+        .hero h1 { font-size: clamp(3.55rem,16vw,6.2rem); }
         .hero-lead { font-size: 1rem; }
         .hero-actions { flex-direction: column; align-items: stretch; }
         .hero-actions .button { width: 100%; }
@@ -253,7 +118,7 @@
         .stat-card { min-height: 110px; padding: 18px 15px; }
         .stat-label { font-size: .76rem; }
         .section { padding-top: 76px; }
-        .feature-grid, .faq-grid { grid-template-columns: 1fr; }
+        .feature-grid,.faq-grid { grid-template-columns: 1fr; }
         .feature-card { min-height: 0; }
         .module-grid { grid-template-columns: repeat(2,minmax(0,1fr)); gap: 8px; }
         .module-card { min-height: 52px; padding: 11px 10px; font-size: .77rem; }
@@ -263,47 +128,29 @@
         .cta-actions { width: 100%; }
         .cta-actions .button { flex: 1 1 100%; }
       }
-      @media (prefers-reduced-motion: reduce) {
-        *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; }
-      }
+      @media (prefers-reduced-motion: reduce) { *,*::before,*::after { scroll-behavior: auto !important; transition-duration: .01ms !important; } }
     </style>
   </head>
   <body>
     <header class="topbar">
       <div class="container topbar-inner">
-        <a class="brand" href="#top" aria-label="Divine Client home">
-          <img class="brand-mark" src="logo_moon.png" alt="" />
-          <span>Divine Client</span>
-        </a>
-        <nav class="nav" aria-label="Main navigation">
-          <a href="#features">Features</a>
-          <a href="#modules">Modules</a>
-          <a href="#versions">Versions</a>
-          <a href="#faq">FAQ</a>
-        </nav>
+        <a class="brand" href="#top" aria-label="Divine Client home"><img class="brand-mark" src="logo_moon.png" alt="" /><span>Divine Client</span></a>
+        <nav class="nav" aria-label="Main navigation"><a href="#features">Features</a><a href="#modules">Modules</a><a href="#versions">Versions</a><a href="#faq">FAQ</a></nav>
         <a class="button button-primary" href="#download">Get Divine</a>
       </div>
     </header>
 
     <main id="top">
       <section class="hero" aria-labelledby="hero-title">
-        <div class="hero-bg" aria-hidden="true"></div>
-        <div class="nebula" aria-hidden="true"></div>
-        <div class="planet planet-one" aria-hidden="true"></div>
-        <div class="planet planet-two" aria-hidden="true"></div>
-        <div class="container hero-content">
-          <div class="hero-copy">
-            <div class="hero-brand"><img src="logo_moon.png" alt="" /><span>Divine Client</span></div>
-            <span class="eyebrow">A new world of performance</span>
-            <h1 id="hero-title"><span>Beyond</span><span class="accent">ordinary.</span></h1>
-            <p class="hero-lead">A refined Minecraft client built for smooth performance, focused PvP utility, and a HUD that feels like yours. Step into a cleaner experience.</p>
-            <div class="hero-actions">
-              <a class="button button-primary" id="downloadBtn" href="#download">Explore Divine <span aria-hidden="true">↗</span></a>
-              <a class="button button-quiet" href="#features">Discover the experience</a>
-            </div>
-            <p class="hero-note">Designed for the journey. Tuned for the moment.</p>
-          </div>
-        </div>
+        <div class="nebula" aria-hidden="true"></div><div class="planet planet-one" aria-hidden="true"></div><div class="planet planet-two" aria-hidden="true"></div>
+        <div class="container hero-content"><div class="hero-copy">
+          <div class="hero-brand"><img src="logo_moon.png" alt="" /><span>Divine Client</span></div>
+          <span class="eyebrow">A new world of performance</span>
+          <h1 id="hero-title"><span>Beyond</span><span class="accent">ordinary.</span></h1>
+          <p class="hero-lead">A refined Minecraft client built for smooth performance, focused PvP utility, and a HUD that feels like yours. Step into a cleaner experience.</p>
+          <div class="hero-actions"><a class="button button-primary" href="#download">Explore Divine <span aria-hidden="true">↗</span></a><a class="button button-quiet" href="#features">Discover the experience</a></div>
+          <p class="hero-note">Designed for the journey. Tuned for the moment.</p>
+        </div></div>
       </section>
 
       <section class="content">
@@ -326,36 +173,20 @@
 
           <section class="section" id="modules">
             <div class="section-heading"><span class="eyebrow">The toolkit</span><h2 class="section-title">A constellation of useful tools.</h2><p class="section-intro">Explore the modules presented for Divine Client.</p></div>
-            <div class="module-grid">
-              <div class="module-card">Armor HUD</div><div class="module-card">Auto Text</div><div class="module-card">Combo Counter</div><div class="module-card">Coordinates</div><div class="module-card">CPS</div><div class="module-card">FPS Display</div><div class="module-card">Free Look</div><div class="module-card">Fullbright</div><div class="module-card">GPU Load</div><div class="module-card">Keystrokes</div><div class="module-card">Light Level</div><div class="module-card">Memory Usage</div><div class="module-card">Motion Blur</div><div class="module-card">Performance</div><div class="module-card">Ping Display</div><div class="module-card">Time</div><div class="module-card">Toggle Sneak</div><div class="module-card">Toggle Sprint</div><div class="module-card">Watermark</div><div class="module-card">Waypoints</div><div class="module-card">Weather</div><div class="module-card">Window Info</div><div class="module-card">XP Tracker</div><div class="module-card">Zoom</div>
-            </div>
+            <div class="module-grid"><div class="module-card">Armor HUD</div><div class="module-card">Auto Text</div><div class="module-card">Combo Counter</div><div class="module-card">Coordinates</div><div class="module-card">CPS</div><div class="module-card">FPS Display</div><div class="module-card">Free Look</div><div class="module-card">Fullbright</div><div class="module-card">GPU Load</div><div class="module-card">Keystrokes</div><div class="module-card">Light Level</div><div class="module-card">Memory Usage</div><div class="module-card">Motion Blur</div><div class="module-card">Performance</div><div class="module-card">Ping Display</div><div class="module-card">Time</div><div class="module-card">Toggle Sneak</div><div class="module-card">Toggle Sprint</div><div class="module-card">Watermark</div><div class="module-card">Waypoints</div><div class="module-card">Weather</div><div class="module-card">Window Info</div><div class="module-card">XP Tracker</div><div class="module-card">Zoom</div></div>
           </section>
 
           <section class="section" id="versions">
             <div class="section-heading"><span class="eyebrow">Compatibility</span><h2 class="section-title">Choose your world.</h2><p class="section-intro">Version support shown on the current project page.</p></div>
-            <div class="version-grid">
-              <article class="version-card"><span class="version-tag">Supported</span><h3>1.8.9</h3><p>Classic PvP setup.</p></article>
-              <article class="version-card"><span class="version-tag">Supported</span><h3>1.20.1</h3><p>Modern gameplay.</p></article>
-              <article class="version-card"><span class="version-tag">Supported</span><h3>1.21.11</h3><p>Recent client behavior.</p></article>
-              <article class="version-card"><span class="version-tag">Supported</span><h3>26.2</h3><p>Current support path.</p></article>
-              <article class="version-card"><span class="version-tag">Supported</span><h3>26.3</h3><p>Current support path.</p></article>
-            </div>
+            <div class="version-grid"><article class="version-card"><span class="version-tag">Supported</span><h3>1.8.9</h3><p>Classic PvP setup.</p></article><article class="version-card"><span class="version-tag">Supported</span><h3>1.20.1</h3><p>Modern gameplay.</p></article><article class="version-card"><span class="version-tag">Supported</span><h3>1.21.11</h3><p>Recent client behavior.</p></article><article class="version-card"><span class="version-tag">Supported</span><h3>26.2</h3><p>Current support path.</p></article><article class="version-card"><span class="version-tag">Supported</span><h3>26.3</h3><p>Current support path.</p></article></div>
           </section>
 
           <section class="section" id="faq">
             <div class="section-heading"><span class="eyebrow">Questions</span><h2 class="section-title">Before takeoff.</h2></div>
-            <div class="faq-grid">
-              <details class="faq-card"><summary>Can I customize the HUD?</summary><p>Yes. The landing page describes a drag-and-drop HUD and configurable widgets.</p></details>
-              <details class="faq-card"><summary>Which Minecraft versions are listed?</summary><p>The current page lists 1.8.9, 1.20.1, 1.21.11, 26.2, and 26.3.</p></details>
-              <details class="faq-card"><summary>Where can I get the client?</summary><p>Use the download area below once the project download link is configured.</p></details>
-              <details class="faq-card"><summary>Is Divine affiliated with Mojang or Microsoft?</summary><p>No. Divine Client is an independent project and is not affiliated with Mojang Studios or Microsoft.</p></details>
-            </div>
+            <div class="faq-grid"><details class="faq-card"><summary>Can I customize the HUD?</summary><p>Yes. The landing page describes a drag-and-drop HUD and configurable widgets.</p></details><details class="faq-card"><summary>Which Minecraft versions are listed?</summary><p>The current page lists 1.8.9, 1.20.1, 1.21.11, 26.2, and 26.3.</p></details><details class="faq-card"><summary>Where can I get the client?</summary><p>Use the download area below once the project download link is configured.</p></details><details class="faq-card"><summary>Is Divine affiliated with Mojang or Microsoft?</summary><p>No. Divine Client is an independent project and is not affiliated with Mojang Studios or Microsoft.</p></details></div>
           </section>
 
-          <section class="cta-panel" id="download">
-            <div><span class="eyebrow">Your next session</span><h2>Find your new orbit.</h2><p>Divine Client — a darker, cleaner way to play.</p></div>
-            <div class="cta-actions"><span class="os-badge" id="osBadge">Desktop</span><a class="button button-primary" href="#top">Explore Divine <span aria-hidden="true">↑</span></a></div>
-          </section>
+          <section class="cta-panel" id="download"><div><span class="eyebrow">Your next session</span><h2>Find your new orbit.</h2><p>Divine Client — a darker, cleaner way to play.</p></div><div class="cta-actions"><span class="os-badge" id="osBadge">Desktop</span><a class="button button-primary" href="#top">Explore Divine <span aria-hidden="true">↑</span></a></div></section>
         </div>
       </section>
     </main>
